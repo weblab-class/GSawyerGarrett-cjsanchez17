@@ -1,4 +1,4 @@
-.NavBar-container {
+/* .NavBar-container {
   padding: var(--s) var(--m);
   background-color: var(--primary);
 }
@@ -30,4 +30,76 @@
 
 .NavBar-link + .NavBar-link {
   margin-left: var(--m);
+} */
+
+/* Global styles for the entire page */
+body {
+  background-color: var(--primary); /* Set the entire page background */
+  color: var(--text); /* Set the default text color */
+  margin: 0; /* Remove default body margin */
+  font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif; /* Set a default font for the body */
+}
+
+/* Container for the navbar */
+.NavBar-container {
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Spread items across the container */
+  align-items: center; /* Vertically center the items */
+  padding: var(--m) var(--l);
+  background-color: var(--primary); /* Set background color for the navbar */
+}
+
+/* Title styles */
+.NavBar-title {
+  color: var(--text);
+  font-size: 20px;
+  opacity: 0.6; /* Set initial opacity */
+  transition: opacity 0.5s ease; /* Smooth transition for opacity */
+}
+
+/* Link container for the left side (Home, Login) */
+.NavBar-linkContainer {
+  display: flex; /* Display links in a row */
+  align-items: center; /* Vertically center the links */
+}
+
+/* Individual Browse styles */
+.NavBar-browse {
+  margin-left: var(--l); /* Space between links */
+  text-decoration: none; /* Remove underline */
+  color: var(--text); /* Link color */
+  font-size: 20px;
+  opacity: 0.6; /* Initial opacity */
+  transition: opacity 0.5s ease; /* Smooth transition for opacity */
+}
+
+/* Individual Profile styles */
+.NavBar-profile {
+  margin-left: var(--m); /* Space between links */
+  text-decoration: none; /* Remove underline */
+  color: var(--text); /* Link color */
+  font-size: 20px;
+  opacity: 0.6; /* Initial opacity */
+  transition: opacity 0.5s ease; /* Smooth transition for opacity */
+}
+
+/* Hover effect for Vibe */
+.NavBar-title:hover {
+  opacity: 1; /* Make the title fully opaque on hover */
+}
+
+/* Hover effect for Browse */
+.NavBar-browse:hover {
+  opacity: 1; /* Make the Browse link fully opaque on hover */
+}
+
+/* Hover effect for Profile */
+.NavBar-profile:hover {
+  opacity: 1; /* Make the Profile link fully opaque on hover */
+}
+
+/* Profile link container on the far right */
+.NavBar-profileContainer {
+  margin-left: auto; /* Push the profile container to the far right */
 }
