@@ -55,7 +55,7 @@ body {
   color: var(--text);
   font-size: 20px;
   opacity: 0.6; /* Set initial opacity */
-  transition: opacity 0.5s ease; /* Smooth transition for opacity */
+  transition: opacity 0.3s ease; /* Smooth transition for opacity */
 }
 
 /* Link container for the left side (Home, Login) */
@@ -71,7 +71,7 @@ body {
   color: var(--text); /* Link color */
   font-size: 20px;
   opacity: 0.6; /* Initial opacity */
-  transition: opacity 0.5s ease; /* Smooth transition for opacity */
+  transition: opacity 0.3s ease; /* Smooth transition for opacity */
 }
 
 /* Individual Profile styles */
@@ -81,7 +81,7 @@ body {
   color: var(--text); /* Link color */
   font-size: 20px;
   opacity: 0.6; /* Initial opacity */
-  transition: opacity 0.5s ease; /* Smooth transition for opacity */
+  transition: opacity 0.3s ease; /* Smooth transition for opacity */
 }
 
 /* Hover effect for Vibe */

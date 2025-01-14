@@ -1,0 +1,38 @@
+/* Center the search bar in the middle of the page */
+.search-form {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100vh; /* Full viewport height */
+  flex-direction: column; /* Stack input and button vertically */
+  margin: 0;
+}
+
+/* Style for the search input field */
+.search-input {
+  padding: 10px;
+  font-size: 16px;
+  width: 300px; /* You can adjust the width */
+  margin-bottom: 10px; /* Space between input and button */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+/* Style for the search button */
+.search-button {
+  padding: 10px 15px;
+  background-color: var(--text); /* Blue button */
+  opacity: 0.6;
+  color: var(--black);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: var(--text); /* Darker blue on hover */
+  opacity: 1;
+}
