@@ -8,6 +8,7 @@ import "../utilities.css";
 import { socket } from "../client-socket";
 
 import { get, post } from "../utilities";
+import NavBar from "./modules/NavBar"; /// for testing navbar
 
 export const UserContext = createContext(null);
 
@@ -48,9 +49,10 @@ const App = () => {
   };
 
   return (
-    <UserContext.Provider value={authContextValue}>
-      <Outlet />
-    </UserContext.Provider>
+    <NavBar /> //for testing nav bar uncomment below to restore
+    // <UserContext.Provider value={authContextValue}>
+    //   <Outlet />
+    // </UserContext.Provider>
   );
 };
 
