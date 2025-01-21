@@ -3,12 +3,12 @@ import SearchBar from "../modules/SearchBar"; // Adjust the path if necessary
 import "./VibePage.css"; // If you have a specific stylesheet for the page
 import searchIcon from "../../assets/magnifying_glass.png";
 
-import cover1 from "/Users/sawyergarrett/Desktop/vibe/GSawyerGarrett-cjsanchez17/client/src/assets/cover1.jpeg";
-import cover2 from "/Users/sawyergarrett/Desktop/vibe/GSawyerGarrett-cjsanchez17/client/src/assets/cover2.jpeg";
-import cover3 from "/Users/sawyergarrett/Desktop/vibe/GSawyerGarrett-cjsanchez17/client/src/assets/cover3.jpeg";
-import cover4 from "/Users/sawyergarrett/Desktop/vibe/GSawyerGarrett-cjsanchez17/client/src/assets/cover4.jpeg";
-import cover5 from "/Users/sawyergarrett/Desktop/vibe/GSawyerGarrett-cjsanchez17/client/src/assets/cover5.jpeg";
-import cover6 from "/Users/sawyergarrett/Desktop/vibe/GSawyerGarrett-cjsanchez17/client/src/assets/cover6.jpeg";
+import cover1 from "../../assets/cover1.jpeg";
+import cover2 from "../../assets/cover2.jpeg";
+import cover3 from "../../assets/cover3.jpeg";
+import cover4 from "../../assets/cover4.jpeg";
+import cover5 from "../../assets/cover5.jpeg";
+import cover6 from "../../assets/cover6.jpeg";
 
 const images = [cover1, cover2, cover3, cover4, cover5, cover6];
 
@@ -37,7 +37,9 @@ const VibePage = () => {
         </h1>
         <div className="search-bar">
           <input type="text" placeholder="Search the vibe you want to explore..." />
-          <button className="search-btn">🔍</button>
+          <button className="search-btn">
+            <img src={searchIcon} alt="Search" />
+          </button>
         </div>
       </div>
     </div>
