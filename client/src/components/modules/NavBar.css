@@ -60,3 +60,36 @@ body {
 .NavBar-profileContainer {
   margin-left: auto; /* Push the profile container to the far right */
 }
+
+/* Auth section (Google login/logout button container) */
+.NavBar-authContainer {
+  margin-left: var(--xxl);
+  display: flex;
+  align-items: center;
+}
+
+/* Google login button container */
+.NavBar-googleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: #ffffff;
+  border-radius: 4px; */
+}
+
+/* Ensure no box, background, or borders */
+.NavBar-logoutText {
+  all: unset; /* Resets all inherited button styles */
+  font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  color: white; /* Set text color to white */
+  font-size: 20px;
+
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+/* Change text color to red on hover */
+.NavBar-logoutText:hover {
+  opacity: 0.6;
+}
