@@ -9,7 +9,7 @@ const SongCard = () => {
   //   const [token, setToken] = useState(null);
   //   const [accessToken, setAccessToken] = useState(null);
   //   const [refreshToken, setRefreshToken] = useState(null);
-  const [songQuery, setSongQuery] = useState("");
+  const [songQuery, setSongQuery] = useState("Taylor Swift");
   // Spotify api implementation; pulling song info from spotify api
   const [access_token, setAccessToken] = useState("null");
   useEffect(() => {
@@ -30,10 +30,24 @@ const SongCard = () => {
   }, []);
 
   // Search by tag(s)
-  let tag = "pop";
+  let tag = "Taylor Swift";
   async function searchByTag(tag) {
     console.log("search for tag: " + tag);
-    let artistID = fetch(`https://api.spotify.com/v1/search?q=${tag}&type=artist&limit=1`);
+
+    var artistParams = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${access_token}`,
+      },
+    };
+
+    let artistID = await fetch(
+      `https://api.spotify.com/v1/search?q=${songQuery}&type=artist`,
+      artistParams
+    )
+      .then((response) => response.json())
+      .then((data) => console.log(data));
   }
   return (
     <div className="song-card-container">
@@ -45,7 +59,7 @@ const SongCard = () => {
           <p className="song-title">Song Name</p>
           <p className="artist-name">Artist Name</p>
           <p className="album-details">Album Name - Release Date</p>
-          <button onClick={() => searchByTag(tag)} className="play-button">
+          <button onClick={() => searchByTag(songQuery)} className="play-button">
             ▶ Play
           </button>
         </div>
