@@ -23,7 +23,7 @@ const SearchBar = () => {
       <input
         type="text"
         className="search-input"
-        placeholder="Click here if gay"
+        placeholder=""
         value={query}
         onChange={handleInputChange}
       />

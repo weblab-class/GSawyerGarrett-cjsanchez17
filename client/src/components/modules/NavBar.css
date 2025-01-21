@@ -1,102 +1,60 @@
-/* .NavBar-container {
-  padding: var(--s) var(--m);
-  background-color: var(--primary);
-}
-
-.NavBar-title {
-  color: var(--white);
-  font-size: 20px;
-}
-
-.NavBar-linkContainer {
-  margin-left: var(--l);
-}
-
-.NavBar-link,
-.NavBar-link:visited {
-  color: var(--white);
-  opacity: 0.6;
-  text-decoration: none;
-}
-
-.NavBar-link:hover {
-  opacity: 0.8;
-}
-
-.NavBar-link.NavBar-login {
-  opacity: 1;
-  color: black;
-}
-
-.NavBar-link + .NavBar-link {
-  margin-left: var(--m);
-} */
-
-/* Global styles for the entire page */
 body {
-  background-color: var(--primary); /* Set the entire page background */
-  color: var(--text); /* Set the default text color */
-  margin: 0; /* Remove default body margin */
+  background-color: var(--primary);
+  color: var(--text);
+  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif; /* Set a default font for the body */
+    "Helvetica Neue", Arial, sans-serif;
 }
 
-/* Container for the navbar */
 .NavBar-container {
   display: flex; /* Use flexbox for layout */
   justify-content: space-between; /* Spread items across the container */
   align-items: center; /* Vertically center the items */
-  padding: var(--m) var(--l);
+  padding: var(--m) var(--xxl);
   background-color: var(--primary); /* Set background color for the navbar */
 }
 
 /* Title styles */
 .NavBar-title {
   color: var(--text);
-  font-size: 20px;
-  opacity: 0.6; /* Set initial opacity */
-  transition: opacity 0.3s ease; /* Smooth transition for opacity */
+  font-size: 25px;
+  opacity: 1; /* Set initial opacity */
 }
 
 /* Link container for the left side (Home, Login) */
 .NavBar-linkContainer {
   display: flex; /* Display links in a row */
   align-items: center; /* Vertically center the links */
+  margin-left: auto;
 }
 
 /* Individual Browse styles */
-.NavBar-browse {
-  margin-left: var(--l); /* Space between links */
+.NavBar-center {
+  margin-left: var(--xxl); /* Space between links */
   text-decoration: none; /* Remove underline */
   color: var(--text); /* Link color */
   font-size: 20px;
-  opacity: 0.6; /* Initial opacity */
+  opacity: 1; /* Initial opacity */
   transition: opacity 0.3s ease; /* Smooth transition for opacity */
 }
 
 /* Individual Profile styles */
 .NavBar-profile {
-  margin-left: var(--m); /* Space between links */
   text-decoration: none; /* Remove underline */
   color: var(--text); /* Link color */
   font-size: 20px;
-  opacity: 0.6; /* Initial opacity */
+  opacity: 1; /* Initial opacity */
   transition: opacity 0.3s ease; /* Smooth transition for opacity */
 }
 
-/* Hover effect for Vibe */
-.NavBar-title:hover {
-  opacity: 1; /* Make the title fully opaque on hover */
-}
-
 /* Hover effect for Browse */
-.NavBar-browse:hover {
-  opacity: 1; /* Make the Browse link fully opaque on hover */
+.NavBar-center:hover {
+  opacity: 0.6; /* Make the Browse link fully opaque on hover */
 }
 
 /* Hover effect for Profile */
 .NavBar-profile:hover {
-  opacity: 1; /* Make the Profile link fully opaque on hover */
+  opacity: 0.6; /* Make the Profile link fully opaque on hover */
 }
 
 /* Profile link container on the far right */

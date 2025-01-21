@@ -1,0 +1,23 @@
+.vibe-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--primary);
+  color: var(--text);
+  text-align: center;
+}
+
+.vibe-title {
+  font-size: 80px;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+.vibe-title-2 {
+  font-size: 120px;
+  font-weight: bold;
+  margin-top: 0;
+  opacity: 1;
+}

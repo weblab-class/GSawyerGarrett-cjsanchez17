@@ -9,15 +9,13 @@ import "./NavBar.css";
 const NavBar = () => {
   return (
     <nav className="NavBar-container">
-      <div className="NavBar-title">Vibe</div>
+      <h1 className="NavBar-title">vibeCheck</h1>
       <div className="NavBar-linkContainer">
-        {/* Left-aligned "Browse" link */}
-        <Link to="/" className="NavBar-browse">
-          Browse
-        </Link>
+        <div className="NavBar-center">Search</div>
+        <div className="NavBar-center">Browse</div>
+        <div className="NavBar-center">Library</div>
       </div>
 
-      {/* Profile link container on the far right */}
       <div className="NavBar-profileContainer">
         <Link to="/profile/" className="NavBar-profile">
           Profile
