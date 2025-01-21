@@ -84,8 +84,13 @@
   display: grid;
   grid-template-columns: repeat(5, 1fr); /* 3 equal columns */
   grid-auto-rows: 1fr; /* Maintain square aspect ratio */
-  gap: 5px; /* Space between grid cells */
-  animation: moveGrid 20s linear infinite;
+  gap: 20px; /* Space between grid cells */
+  animation: moveGrid 30s linear infinite;
+}
+
+.animated-grid {
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
 }
 
 /* Individual grid cells ensuring square shape and scaling */
@@ -110,12 +115,22 @@
   pointer-events: none; /* Allows interactions with elements below */
 }
 
+.animated-grid::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+}
+
 /* Infinite scrolling animation */
 @keyframes moveGrid {
-  0% {
+  from {
     transform: translateY(0);
   }
-  100% {
+  to {
     transform: translateY(-50%);
   }
 }

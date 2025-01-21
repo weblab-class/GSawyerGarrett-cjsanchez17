@@ -26,18 +26,28 @@ const NavBar = () => {
           Profile
         </Link>
 
-        {userId ? (
-          <button
-            onClick={() => {
-              googleLogout();
-              handleLogout();
-            }}
-          >
-            Logout
-          </button>
-        ) : (
-          <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
-        )}
+        <div className="NavBar-authContainer">
+          {userId ? (
+            <button
+              className="NavBar-logoutText"
+              onClick={() => {
+                googleLogout();
+                handleLogout();
+              }}
+            >
+              Logout
+            </button>
+          ) : (
+            <GoogleLogin
+              onSuccess={handleLogin}
+              onError={(err) => console.log(err)}
+              theme="outline"
+              shape="pill"
+              size="medium"
+              theme="filled_black"
+            />
+          )}
+        </div>
       </div>
     </nav>
   );
