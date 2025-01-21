@@ -4,7 +4,7 @@ import App from "./components/App";
 import Skeleton from "./components/pages/Skeleton";
 import NotFound from "./components/pages/NotFound";
 import VibePage from "./components/pages/VibePage";
-
+import SongCard from "./components/modules/SongCard";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -20,7 +20,7 @@ const GOOGLE_CLIENT_ID = "472752248270-vm83ebo96c1urfj2jd3arufj7llciu6f.apps.goo
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route errorElement={<NotFound />} element={<App />}>
-      <Route path="/" element={<VibePage />} />
+      <Route path="/" element={<SongCard />} />
     </Route>
   )
 );
