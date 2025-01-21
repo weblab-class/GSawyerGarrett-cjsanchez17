@@ -2,96 +2,84 @@ body {
   background-color: var(--primary);
   color: var(--text);
   margin: 0;
+  /* taken from stack overflow post see readme*/
   font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
 }
 
 .NavBar-container {
-  display: flex; /* Use flexbox for layout */
-  justify-content: space-between; /* Spread items across the container */
-  align-items: center; /* Vertically center the items */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: var(--m) var(--xxl);
 }
 
-/* Title styles */
 .NavBar-title {
   color: var(--text);
   text-decoration: none;
   font-weight: 600;
   font-size: 25px;
-  opacity: 1; /* Set initial opacity */
+  opacity: 1;
 }
 
-/* Link container for the left side (Home, Login) */
 .NavBar-linkContainer {
-  display: flex; /* Display links in a row */
-  align-items: center; /* Vertically center the links */
+  display: flex;
+  align-items: center;
   margin-left: auto;
 }
 
-/* Individual Browse styles */
 .NavBar-center {
-  margin-left: var(--xxl); /* Space between links */
-  text-decoration: none; /* Remove underline */
-  color: var(--text); /* Link color */
+  margin-left: var(--xxl);
+  text-decoration: none;
+  color: var(--text);
   font-size: 20px;
-  opacity: 1; /* Initial opacity */
-  transition: opacity 0.3s ease; /* Smooth transition for opacity */
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
-/* Individual Profile styles */
 .NavBar-profile {
-  text-decoration: none; /* Remove underline */
-  color: var(--text); /* Link color */
+  text-decoration: none;
+  color: var(--text);
   font-size: 20px;
-  opacity: 1; /* Initial opacity */
-  transition: opacity 0.3s ease; /* Smooth transition for opacity */
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
-/* Hover effect for Browse */
 .NavBar-center:hover {
-  opacity: 0.6; /* Make the Browse link fully opaque on hover */
+  opacity: 0.6;
 }
 
-/* Hover effect for Profile */
 .NavBar-profile:hover {
-  opacity: 0.6; /* Make the Profile link fully opaque on hover */
+  opacity: 0.6;
 }
 
-/* Profile link container on the far right */
 .NavBar-profileContainer {
-  margin-left: auto; /* Push the profile container to the far right */
+  margin-left: auto;
 }
 
-/* Auth section (Google login/logout button container) */
 .NavBar-authContainer {
   margin-left: var(--xxl);
   display: flex;
   align-items: center;
 }
 
-/* Google login button container */
 .NavBar-googleContainer {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background-color: #ffffff;
-  border-radius: 4px; */
 }
 
-/* Ensure no box, background, or borders */
 .NavBar-logoutText {
-  all: unset; /* Resets all inherited button styles */
+  all: unset;
   font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
-  color: white; /* Set text color to white */
+  color: white;
   font-size: 20px;
 
   cursor: pointer;
   transition: color 0.3s ease-in-out;
 }
 
-/* Change text color to red on hover */
 .NavBar-logoutText:hover {
   opacity: 0.6;
 }

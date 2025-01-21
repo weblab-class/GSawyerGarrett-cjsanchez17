@@ -7,9 +7,6 @@ import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import "../../utilities.css";
 import { UserContext } from "../App";
 
-/**
- * The navigation bar at the top of all pages. Takes no props.
- */
 const NavBar = () => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
   return (

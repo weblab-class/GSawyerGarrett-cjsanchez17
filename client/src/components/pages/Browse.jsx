@@ -1,7 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Browse.css";
 
-// Import images
 import cover1 from "../../assets/cover1.jpeg";
 import cover2 from "../../assets/cover2.jpeg";
 import cover3 from "../../assets/cover3.jpeg";
@@ -9,15 +8,34 @@ import cover4 from "../../assets/cover4.jpeg";
 import cover5 from "../../assets/cover5.jpeg";
 import cover6 from "../../assets/cover6.jpeg";
 
-// Sample data with 20 items per row
+// sample placeholder til we get api rolling
 const albums = Array.from({ length: 20 }, (_, index) => ({
   id: index,
-  image: [cover1, cover2, cover3, cover4, cover5, cover6][index % 6], // Rotate through images
+  image: [cover1, cover2, cover3, cover4, cover5, cover6][index % 6],
   name: `Album ${index + 1}`,
 }));
 
 const Browse = () => {
   const rowsRef = useRef([]);
+  const [introVisible, setIntroVisible] = useState(false);
+  const [fadeOutIntro, setFadeOutIntro] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIntroVisible(true);
+    }, 300);
+
+    const handleScroll = () => {
+      if (window.scrollY > 150) {
+        setFadeOutIntro(true);
+      } else {
+        setFadeOutIntro(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -31,7 +49,7 @@ const Browse = () => {
         });
       },
       {
-        threshold: 0.5, // Trigger animation when 50% of row is visible
+        threshold: 0.6,
       }
     );
 
@@ -48,17 +66,23 @@ const Browse = () => {
 
   return (
     <div className="browse-wrapper">
-      {/* Bouncing dots soundwave */}
       <div className="soundwave-dots">
         {Array.from({ length: 50 }).map((_, index) => (
           <span key={index} className="dot" style={{ "--i": index }}></span>
         ))}
       </div>
 
-      {/* Main Content */}
       <div className="browse-container">
         <div className="browse-rows">
-          <div className="scroll-hint">Scroll for more ↓</div>
+          <div
+            className={`intro-section ${introVisible ? "fade-in-active" : ""} ${
+              fadeOutIntro ? "fade-out" : ""
+            }`}
+          >
+            <h1 className="intro-text">Browse New Vibes</h1>
+            <p className="scroll-hint">Scroll to get started ↓</p>
+          </div>
+
           {Array.from({ length: 6 }).map((_, rowIndex) => (
             <div
               key={rowIndex}

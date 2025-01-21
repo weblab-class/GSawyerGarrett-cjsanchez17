@@ -91,3 +91,12 @@ vite.config.js
 ```
 
 ## Good luck on your project :)
+
+## Sources:
+
+Text/font - apple san francisco font style from stack overflow
+https://stackoverflow.com/questions/32660748/how-to-use-apples-san-francisco-font-on-a-webpage
+
+windsurf code editor - used cascade assistant to help debug and gather inspiration across project
+
+chat gpt - used to help debug and gather inspiration across project

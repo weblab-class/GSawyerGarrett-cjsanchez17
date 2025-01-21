@@ -1,6 +1,6 @@
-import React from "react";
-import SearchBar from "../modules/SearchBar"; // Adjust the path if necessary
-import "./VibePage.css"; // If you have a specific stylesheet for the page
+import React, { useEffect, useState } from "react";
+import SearchBar from "../modules/SearchBar";
+import "./VibePage.css";
 import searchIcon from "../../assets/magnifying_glass.png";
 
 import cover1 from "../../assets/cover1.jpeg";
@@ -13,9 +13,16 @@ import cover6 from "../../assets/cover6.jpeg";
 const images = [cover1, cover2, cover3, cover4, cover5, cover6];
 
 const VibePage = () => {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoaded(true);
+    }, 200);
+  }, []);
+
   return (
-    <div className="vibe-wrapper">
-      {/* Background animation */}
+    <div className={`vibe-wrapper ${loaded ? "fade-in" : ""}`}>
       <div className="background">
         <div className="animated-grid">
           {Array.from({ length: 30 }).map((_, index) => (
@@ -29,7 +36,6 @@ const VibePage = () => {
         <div className="grid-overlay"></div>
       </div>
 
-      {/* Foreground content */}
       <div className="vibe-content">
         <h1 className="vibe-title">
           <span className="vibe-line">What's the</span>

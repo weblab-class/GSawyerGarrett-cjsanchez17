@@ -38,8 +38,9 @@
 body {
   margin: 0;
   padding: 0;
+  /* see readme for source */
   font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif; /* Set a default font for the body */
+    "Helvetica Neue", Arial, sans-serif;
   font-weight: 300;
 }
 
