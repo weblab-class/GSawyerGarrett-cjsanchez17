@@ -20,7 +20,7 @@ const GOOGLE_CLIENT_ID = "472752248270-vm83ebo96c1urfj2jd3arufj7llciu6f.apps.goo
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route errorElement={<NotFound />} element={<App />}>
-      <Route path="/" element={<SongCard />} />
+      <Route path="/" element={<VibePage />} />
     </Route>
   )
 );
