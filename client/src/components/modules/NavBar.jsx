@@ -14,7 +14,9 @@ const NavBar = () => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
   return (
     <nav className="NavBar-container">
-      <h1 className="NavBar-title">vibeCheck</h1>
+      <Link to="/" className="NavBar-title">
+        vibeCheck
+      </Link>
       <div className="NavBar-linkContainer">
         <Link to="/browse" className="NavBar-center">
           Browse
