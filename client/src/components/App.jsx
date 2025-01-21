@@ -50,17 +50,9 @@ const App = () => {
   };
 
   return (
-    // <>
-    //   <NavBar />
-    //   <div>
-    //     <VibePage />
-    //   </div>
-    // </>
-
-    //for testing nav bar uncomment below to restore
     <>
-      <NavBar />
       <UserContext.Provider value={authContextValue}>
+        <NavBar />
         <Outlet />
       </UserContext.Provider>
     </>

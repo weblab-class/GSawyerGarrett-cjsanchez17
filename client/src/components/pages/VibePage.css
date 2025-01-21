@@ -1,23 +1,68 @@
-.vibe-page {
+/* Center the entire content vertically and horizontally */
+.vibe-wrapper {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: var(--primary);
-  color: var(--text);
-  text-align: center;
+  /* height: vh; */
+  padding: 150px;
+  background-color: black;
 }
 
+/* Container for the text and search bar */
+.vibe-content {
+  text-align: left; /* Align content text to the left */
+}
+
+/* Title styling */
 .vibe-title {
-  font-size: 80px;
-  margin-bottom: 10px;
-  opacity: 0.8;
+  font-size: 3rem;
+  font-weight: 300;
+  color: white;
+  margin-bottom: 20px;
 }
 
-.vibe-title-2 {
-  font-size: 120px;
-  font-weight: bold;
-  margin-top: 0;
-  opacity: 1;
+/* Styling to ensure VIBE? appears bold and separate */
+.vibe-line {
+  display: block;
+  margin-bottom: -25px; /* Control spacing between lines */
+}
+
+.vibe-highlight {
+  display: block;
+  font-size: 10rem;
+  font-weight: 400;
+}
+
+/* Search bar styles */
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-bar input {
+  width: 400px;
+  padding: 15px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  background: #111;
+  color: white;
+  outline: none;
+}
+
+.search-bar input::placeholder {
+  color: #888;
+}
+
+.search-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.search-btn img {
+  width: 30px; /* Adjust size as needed */
+  height: auto;
 }
