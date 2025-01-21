@@ -11,7 +11,6 @@ body {
   justify-content: space-between; /* Spread items across the container */
   align-items: center; /* Vertically center the items */
   padding: var(--m) var(--xxl);
-  background-color: var(--primary); /* Set background color for the navbar */
 }
 
 /* Title styles */
