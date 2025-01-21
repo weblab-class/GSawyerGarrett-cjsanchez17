@@ -1,0 +1,103 @@
+/* Wrapper to position background and content properly */
+.browse-wrapper {
+  position: relative;
+  overflow: hidden;
+
+  min-height: 100vh;
+}
+
+/* Dots soundwave positioned across the full width of the page */
+.soundwave-dots {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: -1; /* Place behind content */
+}
+
+/* Individual dots for the wave effect */
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+  animation: bounce 5s ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * 0.1s);
+  opacity: 0;
+}
+
+/* Bounce animation with progressive height variation */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(calc(var(--i) * -5px));
+    opacity: 0.1;
+  }
+  50% {
+    transform: translateY(calc(300px - var(--i) * 6px));
+    opacity: 0.6;
+  }
+}
+
+/* Browse page content container */
+.browse-container {
+  padding: 20px;
+  color: white;
+  position: relative;
+  z-index: 10; /* Ensure content stays above background */
+}
+
+/* Browse title styling */
+.browse-title {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Scrollable rows container */
+.browse-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Horizontal scroll container for albums */
+.browse-scrollable {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding-bottom: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #121212;
+}
+
+/* Album item box */
+.browse-item {
+  flex: 0 0 auto;
+  width: 180px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Album image styling */
+.album-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Hover effect */
+.browse-item:hover .album-image {
+  transform: scale(1.05);
+}

@@ -16,6 +16,8 @@ body {
 /* Title styles */
 .NavBar-title {
   color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
   font-size: 25px;
   opacity: 1; /* Set initial opacity */
 }

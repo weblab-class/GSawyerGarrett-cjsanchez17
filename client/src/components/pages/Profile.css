@@ -1,0 +1,24 @@
+/* Container to center the profile image */
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height for vertical centering */
+  text-align: center;
+}
+
+/* Profile image styling */
+.profile-image {
+  width: 200px; /* Set the size of the image */
+  height: 200px; /* Keep height same for perfect circle */
+  border-radius: 50%; /* Makes the image circular */
+  object-fit: cover; /* Ensures the image fills the circle without distortion */
+  border: 5px solid white; /* Optional border styling */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Optional shadow for a stylish look */
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Add a hover effect to the profile image */
+.profile-image:hover {
+  transform: scale(1.05); /* Slight enlargement on hover */
+}
