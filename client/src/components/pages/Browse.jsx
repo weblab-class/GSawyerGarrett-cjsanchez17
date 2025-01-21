@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./Browse.css";
 
 // Import images
@@ -17,6 +17,35 @@ const albums = Array.from({ length: 20 }, (_, index) => ({
 }));
 
 const Browse = () => {
+  const rowsRef = useRef([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("fade-in-active");
+          } else {
+            entry.target.classList.remove("fade-in-active");
+          }
+        });
+      },
+      {
+        threshold: 0.5, // Trigger animation when 50% of row is visible
+      }
+    );
+
+    rowsRef.current.forEach((row) => {
+      if (row) observer.observe(row);
+    });
+
+    return () => {
+      rowsRef.current.forEach((row) => {
+        if (row) observer.unobserve(row);
+      });
+    };
+  }, []);
+
   return (
     <div className="browse-wrapper">
       {/* Bouncing dots soundwave */}
@@ -29,8 +58,13 @@ const Browse = () => {
       {/* Main Content */}
       <div className="browse-container">
         <div className="browse-rows">
+          <div className="scroll-hint">Scroll for more ↓</div>
           {Array.from({ length: 6 }).map((_, rowIndex) => (
-            <div key={rowIndex} className="browse-row">
+            <div
+              key={rowIndex}
+              ref={(el) => (rowsRef.current[rowIndex] = el)}
+              className="browse-row fade-in"
+            >
               <h2 className="category-title">Category {rowIndex + 1}</h2>
               <div className="browse-scrollable">
                 {albums.map((album) => (

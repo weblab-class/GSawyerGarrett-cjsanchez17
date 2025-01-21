@@ -85,7 +85,7 @@
   grid-template-columns: repeat(5, 1fr); /* 3 equal columns */
   grid-auto-rows: 1fr; /* Maintain square aspect ratio */
   gap: 20px; /* Space between grid cells */
-  animation: moveGrid 30s linear infinite;
+  animation: moveGrid 40s linear infinite;
 }
 
 .animated-grid {

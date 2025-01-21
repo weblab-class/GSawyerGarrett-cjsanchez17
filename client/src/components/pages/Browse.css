@@ -1,9 +1,11 @@
 /* Wrapper to position background and content properly */
 .browse-wrapper {
   position: relative;
-  overflow: hidden;
+  overflow-y: auto;
 
   min-height: 100vh;
+  padding: 50px 0;
+  scroll-snap-type: y mandatory;
 }
 
 /* Dots soundwave positioned across the full width of the page */
@@ -54,18 +56,35 @@
   z-index: 10; /* Ensure content stays above background */
 }
 
-/* Browse title styling */
-.browse-title {
-  font-size: 3rem;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
 /* Scrollable rows container */
 .browse-rows {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 300px; /* Large gap to simulate scrolling effect */
+  align-items: center;
+}
+
+/* Scroll snap effect */
+.browse-row {
+  scroll-snap-align: center;
+  max-width: 80%;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+/* Active fade-in effect */
+.fade-in-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Category title styles */
+.category-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #ffffff;
 }
 
 /* Horizontal scroll container for albums */
@@ -100,4 +119,32 @@
 /* Hover effect */
 .browse-item:hover .album-image {
   transform: scale(1.05);
+}
+
+/* Ensure scroll hint doesn't affect layout */
+.scroll-hint {
+  position: absolute;
+  top: 15%; /* Place below the first row */
+  left: 50%;
+  transform: translate(-50%, 0);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 300;
+  opacity: 0;
+  animation: fadeInOut 2s infinite ease-in-out;
+  z-index: 5; /* Ensure it's above the content */
+  pointer-events: none;
+}
+
+/* Fade in and out animation for the scroll hint */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.4;
+  }
 }
