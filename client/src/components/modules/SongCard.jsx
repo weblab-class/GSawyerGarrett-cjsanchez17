@@ -33,6 +33,7 @@ const SongCard = () => {
   let tag = "pop";
   async function searchByTag(tag) {
     console.log("search for tag: " + tag);
+    let artistID = fetch(`https://api.spotify.com/v1/search?q=${tag}&type=artist&limit=1`);
   }
   return (
     <div className="song-card-container">

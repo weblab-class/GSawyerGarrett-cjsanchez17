@@ -41,7 +41,6 @@ const NavBar = () => {
             <GoogleLogin
               onSuccess={handleLogin}
               onError={(err) => console.log(err)}
-              theme="outline"
               shape="pill"
               size="medium"
               theme="filled_black"
