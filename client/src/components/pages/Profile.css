@@ -1,24 +1,188 @@
-/* Container to center the profile image */
-.profile-container {
+.profile-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  padding-top: 40px;
+  background: #000;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  animation: fadeIn 1s ease-in-out forwards;
+  justify-content: center;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.profile-circle {
+  width: 250px;
+  height: 250px;
+  border: 5px solid white;
+  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Full viewport height for vertical centering */
+  position: relative;
+  background: #000;
+
+  overflow: hidden;
+  margin-bottom: 30px;
+  animation: floatAnimation 4s ease-in-out infinite;
+}
+
+@keyframes floatAnimation {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.avatar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.head {
+  width: 120px;
+  height: 120px;
+  background: #fff;
+  border-radius: 50%;
+  position: relative;
+}
+
+.eye-container {
+  display: flex;
+  justify-content: space-between;
+  width: 60px;
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.eye {
+  width: 25px;
+  height: 25px;
+  background: #000;
+  border-radius: 50%;
+  position: relative;
+  border: 2px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pupil {
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.1s ease-out;
+}
+
+.body {
+  width: 170px;
+  height: 150px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  bottom: -145px;
+}
+
+.profile-text {
   text-align: center;
+
+  color: white;
 }
 
-/* Profile image styling */
-.profile-image {
-  width: 200px; /* Set the size of the image */
-  height: 200px; /* Keep height same for perfect circle */
-  border-radius: 50%; /* Makes the image circular */
-  object-fit: cover; /* Ensures the image fills the circle without distortion */
-  border: 5px solid white; /* Optional border styling */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Optional shadow for a stylish look */
-  transition: transform 0.3s ease-in-out;
+.profile-text h2 {
+  font-size: 28px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+  position: relative;
+  display: inline-block;
+  text-decoration: underline;
+  background-color: black;
 }
 
-/* Add a hover effect to the profile image */
-.profile-image:hover {
-  transform: scale(1.05); /* Slight enlargement on hover */
+.profile-text p {
+  font-size: 20px;
+  margin: 10px 0;
+  padding: 5px 0;
+  font-weight: 300;
+  letter-spacing: 1px;
+
+  background-color: black;
+}
+
+.profile-text span {
+  font-weight: 600;
+  font-size: 22px;
+  color: #00aeff;
+  background-color: black;
+  font-family: "Courier New", monospace;
+}
+
+.grid-background {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) perspective(900px) rotateX(60deg);
+  width: 160%;
+  height: 60vh;
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  gap: 0px;
+  z-index: -1;
+  opacity: 0;
+  animation: fadeGrid 6s ease-in-out infinite alternate;
+}
+
+.inverted-grid-background {
+  position: fixed;
+  bottom: 50%;
+  left: 50%;
+  transform: translateX(-50%) perspective(900px) rotateX(-60deg);
+  width: 160%;
+  height: 60vh;
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  gap: 0px;
+  z-index: -1;
+  opacity: 0;
+  animation: fadeGrid 6s ease-in-out infinite alternate;
+}
+
+.grid-line,
+.inverted-grid-line {
+  border: 1px solid rgb(255, 255, 255);
+}
+
+@keyframes fadeGrid {
+  0% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0.7;
+  }
 }
