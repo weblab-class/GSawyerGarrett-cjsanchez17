@@ -79,7 +79,7 @@ const Browse = () => {
               fadeOutIntro ? "fade-out" : ""
             }`}
           >
-            <h1 className="intro-text">Browse New Vibes</h1>
+            <h1 className="intro-text">Find New Vibes</h1>
             <p className="scroll-hint">Scroll to get started ↓</p>
           </div>
 

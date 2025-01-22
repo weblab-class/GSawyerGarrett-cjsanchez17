@@ -100,3 +100,7 @@ https://stackoverflow.com/questions/32660748/how-to-use-apples-san-francisco-fon
 windsurf code editor - used cascade assistant to help debug and gather inspiration across project
 
 chat gpt - used to help debug and gather inspiration across project
+
+animations - used many resources to learn about css animation -https://web.dev/learn/css/animations -https://www.w3schools.com/css/css3_animations.asp -https://www.youtube.com/watch?v=SgmNxE9lWcY -https://cssanimation.rocks/ - great learning tool
+
+eye tracking - took inspiration from this video: https://www.youtube.com/watch?v=iW3gAktFD90
