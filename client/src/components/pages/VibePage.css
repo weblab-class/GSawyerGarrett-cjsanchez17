@@ -8,7 +8,7 @@
 }
 
 .vibe-content {
-  animation: fadeIn 0.8s ease-in-out;
+  animation: fadeIn 2s ease-in-out;
 }
 
 .vibe-wrapper {
@@ -74,7 +74,7 @@
 }
 
 .background {
-  animation: fadeIn 0.8s ease-in-out;
+  animation: fadeIn 3s ease-in-out;
   position: fixed;
   top: 0;
   left: 0;
@@ -126,7 +126,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(32, 32, 32, 0.3);
   pointer-events: none;
 }
 

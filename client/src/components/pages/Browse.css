@@ -136,6 +136,12 @@
   scrollbar-color: #888 #121212;
 }
 
+.browse-item-link {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+}
+
 .browse-item {
   flex: 0 0 auto;
   width: 180px;
@@ -156,4 +162,47 @@
 
 .browse-item:hover .album-image {
   transform: scale(1.05);
+}
+
+.songcard-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.9); /* Darken background */
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  z-index: 1000; /* Ensure it overlays everything */
+  overflow: hidden; /* Prevent scrolling */
+}
+
+/* Content within the overlay */
+.songcard-content {
+  position: relative;
+  background: rgba(20, 20, 20, 0.95);
+  padding: 80px;
+  border-radius: 15px;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Back button styling inside overlay */
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+.back-button:hover {
+  color: #949494;
 }
