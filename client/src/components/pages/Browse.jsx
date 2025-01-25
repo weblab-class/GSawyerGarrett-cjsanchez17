@@ -34,6 +34,9 @@ const Browse = () => {
       { threshold: 0.6 }
     );
 
+    const introSection = document.querySelector(".intro-section");
+    if (introSection) observer.observe(introSection);
+
     rowsRef.current.forEach((row) => {
       if (row) observer.observe(row);
     });
