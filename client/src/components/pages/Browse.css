@@ -149,6 +149,7 @@
   text-align: center;
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
+  border-radius: 10px;
 }
 
 .album-image {
@@ -170,27 +171,52 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.9); /* Darken background */
+  background: rgba(0, 0, 0, 0.9);
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  z-index: 1000; /* Ensure it overlays everything */
-  overflow: hidden; /* Prevent scrolling */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow: auto;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-/* Content within the overlay */
 .songcard-content {
   position: relative;
   background: rgba(20, 20, 20, 0.95);
-  padding: 80px;
+  padding: 40px;
   border-radius: 15px;
-  max-width: 500px;
-  width: 90%;
+  max-width: 90%;
+  width: 50%;
   text-align: center;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+  max-height: 90vh;
 }
 
-/* Back button styling inside overlay */
+@media (max-width: 768px) {
+  .songcard-content {
+    padding: 20px;
+    max-width: 100%;
+    border-radius: 10px;
+  }
+}
+
+.songcard-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+.songcard-content p {
+  font-size: 1rem;
+}
+
+@media (max-width: 480px) {
+  .songcard-content p {
+    font-size: 0.9rem;
+  }
+}
+
 .back-button {
   position: absolute;
   top: 20px;
@@ -205,4 +231,40 @@
 
 .back-button:hover {
   color: #949494;
+}
+
+@media (max-width: 768px) {
+  .intro-text {
+    font-size: 5rem;
+  }
+
+  .scroll-hint {
+    font-size: 1.2rem;
+  }
+
+  .category-title {
+    font-size: 1.5rem;
+  }
+
+  .browse-item {
+    width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .intro-text {
+    font-size: 3.5rem;
+  }
+
+  .scroll-hint {
+    font-size: 1rem;
+  }
+
+  .category-title {
+    font-size: 1.3rem;
+  }
+
+  .browse-item {
+    width: 140px;
+  }
 }
