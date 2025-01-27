@@ -28,6 +28,7 @@ const router = createBrowserRouter(
       <Route path="/library" element={<Library />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/browse" element={<Browse />} />
+      <Route path="/song/:id" element={<SongCard />} />
     </Route>
   )
 );

@@ -68,12 +68,13 @@
   box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
   opacity: 0;
   transform: translateY(50px);
-  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
 }
 
 .intro-section.fade-in-active {
   opacity: 1;
   transform: translateY(0);
+  animation: fadeIn 1.5s ease-in-out;
 }
 
 .intro-section.fade-out {
@@ -136,6 +137,12 @@
   scrollbar-color: #888 #121212;
 }
 
+.browse-item-link {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+}
+
 .browse-item {
   flex: 0 0 auto;
   width: 180px;
@@ -143,6 +150,7 @@
   text-align: center;
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
+  border-radius: 10px;
 }
 
 .album-image {
@@ -152,8 +160,113 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease-in-out;
+  filter: grayscale(100%);
 }
 
 .browse-item:hover .album-image {
   transform: scale(1.05);
+}
+
+.songcard-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow: auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.songcard-content {
+  position: relative;
+  background: rgba(20, 20, 20, 0.95);
+  padding: 40px;
+  border-radius: 15px;
+  max-width: 90%;
+  width: 50%;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+@media (max-width: 768px) {
+  .songcard-content {
+    padding: 20px;
+    max-width: 100%;
+    border-radius: 10px;
+  }
+}
+
+.songcard-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+.songcard-content p {
+  font-size: 1rem;
+}
+
+@media (max-width: 480px) {
+  .songcard-content p {
+    font-size: 0.9rem;
+  }
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+.back-button:hover {
+  color: #949494;
+}
+
+@media (max-width: 768px) {
+  .intro-text {
+    font-size: 5rem;
+  }
+
+  .scroll-hint {
+    font-size: 1.2rem;
+  }
+
+  .category-title {
+    font-size: 1.5rem;
+  }
+
+  .browse-item {
+    width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .intro-text {
+    font-size: 3.5rem;
+  }
+
+  .scroll-hint {
+    font-size: 1rem;
+  }
+
+  .category-title {
+    font-size: 1.3rem;
+  }
+
+  .browse-item {
+    width: 140px;
+  }
 }
