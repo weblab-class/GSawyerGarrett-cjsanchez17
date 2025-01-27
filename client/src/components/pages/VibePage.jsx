@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import SearchBar from "../modules/SearchBar";
 import "./VibePage.css";
 import searchIcon from "../../assets/magnifying_glass.png";
+import axios from "axios";
 
 const CLIENT_ID = "c708b6906aeb425ab539cf51c38157d4";
 const CLIENT_SECRET = "5a1c3ea5e2de419b91b640b371a6149d";
@@ -9,6 +10,10 @@ const CLIENT_SECRET = "5a1c3ea5e2de419b91b640b371a6149d";
 const VibePage = () => {
   const [loaded, setLoaded] = useState(false);
   const [albumCovers, setAlbumCovers] = useState([]);
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchAccessToken = async () => {
@@ -58,6 +63,30 @@ const VibePage = () => {
     setTimeout(() => setLoaded(true), 200);
   }, []);
 
+  const handleSearch = async () => {
+    if (!query.trim()) return;
+    setResults([]); // Clear previous results
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await axios.get("http://18.219.58.154:8000/recommend/", {
+        params: { query },
+      });
+
+      if (response.data && response.data.results && Array.isArray(response.data.results)) {
+        setResults(response.data.results);
+      } else {
+        throw new Error("Unexpected API response format.");
+      }
+    } catch (err) {
+      console.error("Error fetching recommendations:", err);
+      setError("Failed to fetch recommendations. Try again.");
+    }
+
+    setLoading(false);
+  };
+
   return (
     <div className={`vibe-wrapper ${loaded ? "fade-in" : ""}`}>
       <div className="background">
@@ -82,11 +111,34 @@ const VibePage = () => {
           <span className="vibe-line">What's the</span>
           <span className="vibe-highlight">VIBE?</span>
         </h1>
-        <div className="search-bar">
-          <input type="text" placeholder="Search the vibe you want to explore..." />
-          <button className="search-btn">
-            <img src={searchIcon} alt="Search" />
-          </button>
+
+        <div className="search-container">
+          <div className="search-bar">
+            <input
+              type="text"
+              placeholder="Search the vibe you want to explore..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+            <button className="search-btn" onClick={handleSearch} disabled={loading}>
+              <img src={searchIcon} alt="Search" />
+            </button>
+          </div>
+
+          {loading && <p className="loading-text">Searching...</p>}
+          {error && <p className="error-text">{error}</p>}
+
+          <ul className="results-list">
+            {results.length > 0 ? (
+              results.map((item, index) => (
+                <li key={index} className="result-item">
+                  {item.entity} - Score: {item.score.toFixed(4)}
+                </li>
+              ))
+            ) : (
+              <p className="no-results">Enter a search term to explore music recommendations.</p>
+            )}
+          </ul>
         </div>
       </div>
     </div>
