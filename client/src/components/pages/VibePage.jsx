@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import SearchBar from "../modules/SearchBar";
 import "./VibePage.css";
 import searchIcon from "../../assets/magnifying_glass.png";
 import axios from "axios";
+import SongCard from "../modules/SongCard";
 
 const CLIENT_ID = "c708b6906aeb425ab539cf51c38157d4";
 const CLIENT_SECRET = "5a1c3ea5e2de419b91b640b371a6149d";
@@ -12,8 +12,12 @@ const VibePage = () => {
   const [albumCovers, setAlbumCovers] = useState([]);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
+  const [songDetails, setSongDetails] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [showOverlay, setShowOverlay] = useState(false);
+  const [accessToken, setAccessToken] = useState("");
 
   useEffect(() => {
     const fetchAccessToken = async () => {
@@ -27,55 +31,61 @@ const VibePage = () => {
         });
 
         const data = await response.json();
-        return data.access_token;
+        setAccessToken(data.access_token);
       } catch (error) {
         console.error("Error fetching access token:", error);
-        return null;
+        setError("Failed to fetch access token.");
       }
     };
 
+    fetchAccessToken();
+  }, []);
+
+  useEffect(() => {
     const fetchAlbumCovers = async () => {
-      const accessToken = await fetchAccessToken();
-      if (!accessToken) {
-        console.error("Failed to get access token");
-        return;
-      }
-
+      if (!accessToken) return;
       try {
-        const response = await fetch("https://api.spotify.com/v1/browse/new-releases?limit=30", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
+        const response = await axios.get(
+          "https://api.spotify.com/v1/browse/new-releases?limit=30",
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
 
-        const data = await response.json();
-        if (data.albums && data.albums.items) {
-          const covers = data.albums.items.map((album) => album.images[0]?.url);
+        if (response.data.albums && response.data.albums.items) {
+          const covers = response.data.albums.items.map((album) => album.images[0]?.url);
           setAlbumCovers(covers);
         }
       } catch (error) {
         console.error("Error fetching album covers:", error);
+        setError("Failed to load album covers.");
       }
     };
 
-    fetchAlbumCovers();
-    setTimeout(() => setLoaded(true), 200);
-  }, []);
+    if (accessToken) {
+      fetchAlbumCovers();
+      setTimeout(() => setLoaded(true), 200);
+    }
+  }, [accessToken]);
 
   const handleSearch = async () => {
     if (!query.trim()) return;
-    setResults([]); // Clear previous results
+    setResults([]);
+    setSongDetails([]);
     setLoading(true);
     setError(null);
 
     try {
+      // Fetch recommended song names from your API
       const response = await axios.get("http://18.219.58.154:8000/recommend/", {
         params: { query },
       });
 
       if (response.data && response.data.results && Array.isArray(response.data.results)) {
         setResults(response.data.results);
+        fetchSongDetails(response.data.results);
       } else {
         throw new Error("Unexpected API response format.");
       }
@@ -85,6 +95,51 @@ const VibePage = () => {
     }
 
     setLoading(false);
+  };
+
+  const fetchSongDetails = async (songs) => {
+    const details = [];
+
+    for (const song of songs) {
+      try {
+        const spotifyResponse = await axios.get("https://api.spotify.com/v1/search", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+          params: {
+            q: song.entity,
+            type: "track",
+            limit: 1,
+          },
+        });
+
+        if (spotifyResponse.data.tracks.items.length > 0) {
+          const track = spotifyResponse.data.tracks.items[0];
+          details.push({
+            name: track.name,
+            artist: track.artists.map((artist) => artist.name).join(", "),
+            releaseDate: track.album.release_date,
+            albumCover: track.album.images[0]?.url || "",
+            previewUrl: track.preview_url || "",
+            spotifyUrl: track.external_urls.spotify, // Spotify track URL
+          });
+        }
+      } catch (error) {
+        console.error(`Error searching for song "${song.entity}":`, error);
+      }
+    }
+
+    setSongDetails(details);
+    setShowOverlay(true);
+    setCurrentIndex(0);
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % songDetails.length);
+  };
+
+  const handleClose = () => {
+    setShowOverlay(false);
   };
 
   return (
@@ -127,20 +182,12 @@ const VibePage = () => {
 
           {loading && <p className="loading-text">Searching...</p>}
           {error && <p className="error-text">{error}</p>}
-
-          <ul className="results-list">
-            {results.length > 0 ? (
-              results.map((item, index) => (
-                <li key={index} className="result-item">
-                  {item.entity} - Score: {item.score.toFixed(4)}
-                </li>
-              ))
-            ) : (
-              <p className="no-results">Enter a search term to explore music recommendations.</p>
-            )}
-          </ul>
         </div>
       </div>
+
+      {showOverlay && songDetails.length > 0 && (
+        <SongCard album={songDetails[currentIndex]} onClose={handleClose} onNext={handleNext} />
+      )}
     </div>
   );
 };
