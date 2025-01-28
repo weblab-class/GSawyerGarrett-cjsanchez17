@@ -1,7 +1,7 @@
 import React from "react";
 import "./SongCard.css";
 
-const SongCard = ({ album, onClose, onNext, query }) => {
+const SongCard = ({ album, onClose, onNext, onPrevious, query, currentIndex, totalTracks }) => {
   if (!album) return null;
 
   return (
@@ -47,7 +47,21 @@ const SongCard = ({ album, onClose, onNext, query }) => {
             🎧 Listen on Spotify
           </a>
         </div>
+
+        {/* Track Counter */}
+        <div className="track-counter">
+          Track {currentIndex + 1} of {totalTracks}
+        </div>
       </div>
+
+      {/* Previous Button */}
+      <button
+        className="previous-button"
+        onClick={onPrevious}
+        style={{ opacity: onPrevious ? 1 : 0.5, pointerEvents: onPrevious ? "auto" : "none" }}
+      >
+        ← Previous
+      </button>
 
       {/* Next Button */}
       <button

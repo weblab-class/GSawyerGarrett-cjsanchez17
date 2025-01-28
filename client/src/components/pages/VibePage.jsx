@@ -21,16 +21,17 @@ const VibePage = () => {
   const [randomWord, setRandomWord] = useState("Searching");
 
   const loadingPhrases = [
-    "Navigating the Multiverse of Music",
-    "Looking for vibes",
-    "Finding your groove",
+    "Navigating the multiverse of music",
+    "Doing some heavy lifting",
+    "Searching the wormholes for your query",
     "It'll take a sec",
     "Vibe-checking",
     "Synthesizing sound waves",
     "Doing a quick mental calculation",
     "Finding the derivative",
-    "Loading tracks",
-    "Watch this ^ while you wait",
+    "Vector mapping your vibe",
+    "Just watch this ^ while you wait",
+    "Searching for who asked",
   ];
 
   useEffect(() => {
@@ -221,10 +222,17 @@ const VibePage = () => {
 
       {showOverlay && songDetails.length > 0 && (
         <SongCard
-          album={songDetails[currentIndex]} // Pass the current album details
-          onClose={handleClose} // Close handler for the overlay
-          onNext={handleNext} // Next handler for navigating songs
-          query={query} // Pass the user query
+          album={songDetails[currentIndex]} // Current album details
+          onClose={handleClose} // Close the overlay
+          onNext={() => setCurrentIndex((prevIndex) => (prevIndex + 1) % songDetails.length)} // Next song
+          onPrevious={() =>
+            setCurrentIndex(
+              (prevIndex) => (prevIndex - 1 + songDetails.length) % songDetails.length
+            )
+          } // Previous song
+          query={query} // Search query
+          currentIndex={currentIndex} // Current track index
+          totalTracks={songDetails.length} // Total number of tracks
         />
       )}
     </div>
