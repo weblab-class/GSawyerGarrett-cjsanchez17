@@ -1,23 +1,33 @@
 import React from "react";
 import "./SongCard.css";
 
-const SongCard = ({ album, onClose, onNext }) => {
+const SongCard = ({ album, onClose, onNext, query }) => {
   if (!album) return null;
 
   return (
     <div className="songcard-overlay">
+      {/* Back Button */}
       <button className="back-button" onClick={onClose}>
         ← Back
       </button>
+
       <div className="songcard-content">
+        {/* Query Display */}
+        <div className="query-display">Results For: {query}</div>
+
+        {/* Album Cover */}
         <div
           className="song-card-album-container"
-          style={{ backgroundImage: `url(${album.albumCover})` }}
+          style={{
+            backgroundImage: `url(${album.albumCover || "https://via.placeholder.com/300"})`,
+          }}
         ></div>
+
+        {/* Song Info */}
         <div className="song-info">
-          <p className="song-title">{album.name}</p>
-          <p className="artist-name">{album.artist}</p>
-          <p className="album-details">Released: {album.releaseDate}</p>
+          <p className="song-title">{album.name || "Unknown Title"}</p>
+          <p className="artist-name">{album.artist || "Unknown Artist"}</p>
+          <p className="album-details">Released: {album.releaseDate || "Unknown Date"}</p>
 
           {album.previewUrl ? (
             <audio controls>
@@ -38,7 +48,13 @@ const SongCard = ({ album, onClose, onNext }) => {
           </a>
         </div>
       </div>
-      <button className="next-button" onClick={onNext}>
+
+      {/* Next Button */}
+      <button
+        className="next-button"
+        onClick={onNext}
+        style={{ opacity: onNext ? 1 : 0.5, pointerEvents: onNext ? "auto" : "none" }}
+      >
         Next →
       </button>
     </div>

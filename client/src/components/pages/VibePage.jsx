@@ -186,7 +186,12 @@ const VibePage = () => {
       </div>
 
       {showOverlay && songDetails.length > 0 && (
-        <SongCard album={songDetails[currentIndex]} onClose={handleClose} onNext={handleNext} />
+        <SongCard
+          album={songDetails[currentIndex]} // Pass the current album details
+          onClose={handleClose} // Close handler for the overlay
+          onNext={handleNext} // Next handler for navigating songs
+          query={query} // Pass the user query
+        />
       )}
     </div>
   );
