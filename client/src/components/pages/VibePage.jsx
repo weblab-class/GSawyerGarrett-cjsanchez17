@@ -122,13 +122,15 @@ const VibePage = () => {
     const details = [];
 
     for (const song of songs) {
+      const [track, artistPart] = song.entity.split(" by ");
+      const [artist, album] = artistPart.split(" from ");
       try {
         const spotifyResponse = await axios.get("https://api.spotify.com/v1/search", {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
           params: {
-            q: song.entity,
+            q: `track:${track.trim()} artist:${artist.trim()}`,
             type: "track",
             limit: 1,
           },
