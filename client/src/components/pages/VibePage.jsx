@@ -18,6 +18,20 @@ const VibePage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showOverlay, setShowOverlay] = useState(false);
   const [accessToken, setAccessToken] = useState("");
+  const [randomWord, setRandomWord] = useState("Searching");
+
+  const loadingPhrases = [
+    "Navigating the Multiverse of Music",
+    "Looking for vibes",
+    "Finding your groove",
+    "It'll take a sec",
+    "Vibe-checking",
+    "Synthesizing sound waves",
+    "Doing a quick mental calculation",
+    "Finding the derivative",
+    "Loading tracks",
+    "Watch this ^ while you wait",
+  ];
 
   useEffect(() => {
     const fetchAccessToken = async () => {
@@ -72,9 +86,15 @@ const VibePage = () => {
 
   const handleSearch = async () => {
     if (!query.trim()) return;
+
+    // Randomize the loading word
+    const randomPhrase = loadingPhrases[Math.floor(Math.random() * loadingPhrases.length)];
+    setRandomWord(randomPhrase);
+
+    // Reset previous results and start loading
     setResults([]);
     setSongDetails([]);
-    setLoading(true);
+    setLoading(true); // Start the loading animation
     setError(null);
 
     try {
@@ -85,16 +105,16 @@ const VibePage = () => {
 
       if (response.data && response.data.results && Array.isArray(response.data.results)) {
         setResults(response.data.results);
-        fetchSongDetails(response.data.results);
+        await fetchSongDetails(response.data.results); // Wait for all details to load
       } else {
         throw new Error("Unexpected API response format.");
       }
     } catch (err) {
       console.error("Error fetching recommendations:", err);
       setError("Failed to fetch recommendations. Try again.");
+    } finally {
+      setLoading(false); // Stop the loading animation after everything is done
     }
-
-    setLoading(false);
   };
 
   const fetchSongDetails = async (songs) => {
@@ -180,7 +200,21 @@ const VibePage = () => {
             </button>
           </div>
 
-          {loading && <p className="loading-text">Searching...</p>}
+          {/* Loading spinner with randomized word */}
+          {loading && (
+            <div className="loading-spinner">
+              <div className="spinner"></div>
+              <p>
+                {randomWord}
+                <span className="dots-animation">
+                  <span>.</span>
+                  <span>.</span>
+                  <span>.</span>
+                </span>
+              </p>
+            </div>
+          )}
+
           {error && <p className="error-text">{error}</p>}
         </div>
       </div>
