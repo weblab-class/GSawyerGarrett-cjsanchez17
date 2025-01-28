@@ -60,8 +60,22 @@ const Browse = () => {
           </div>
         </div>
       )}
+      <div className="soundwave-dots above">
+        {/* Above dots */}
+        {Array.from({ length: 50 }).map((_, index) => (
+          <span key={index} className="dot" style={{ "--i": index }}></span>
+        ))}
+      </div>
 
       <div className="soundwave-dots">
+        {/* Middle dots */}
+        {Array.from({ length: 50 }).map((_, index) => (
+          <span key={index} className="dot" style={{ "--i": index }}></span>
+        ))}
+      </div>
+
+      <div className="soundwave-dots mirrored">
+        {/* Mirrored dots */}
         {Array.from({ length: 50 }).map((_, index) => (
           <span key={index} className="dot" style={{ "--i": index }}></span>
         ))}
