@@ -100,7 +100,7 @@ const VibePage = () => {
 
     try {
       // Fetch recommended song names from your API
-      const response = await axios.get("http://18.219.58.154:8000/recommend/", {
+      const response = await axios.get("https://vibecheckapi.com/recommend/", {
         params: { query },
       });
 
