@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import "./VibePage.css";
 import searchIcon from "../../assets/magnifying_glass.png";
 import axios from "axios";
@@ -69,10 +69,12 @@ const ALBUM_COVERS = [
   album30,
 ];
 
-// const CLIENT_ID = "c708b6906aeb425ab539cf51c38157d4";
-// const CLIENT_SECRET = "5a1c3ea5e2de419b91b640b371a6149d";
-const CLIENT_ID = "f29a728065c147a1b8b7dcb81712fe6b";
-const CLIENT_SECRET = "77672cc851f14b1582f45905873c38fb";
+// const CLIENT_ID = "c708b6906aeb425ab539cf51c38157d4"; //old timedout
+// const CLIENT_SECRET = "5a1c3ea5e2de419b91b640b371a6149d"; //old timedout
+// const CLIENT_ID = "f29a728065c147a1b8b7dcb81712fe6b";
+// const CLIENT_SECRET = "77672cc851f14b1582f45905873c38fb";
+const CLIENT_ID = "49c10d34570d4ed481fc310c7a6c0788";
+const CLIENT_SECRET = "7e0c15fcf052455ebb441d983a533307";
 
 const VibePage = () => {
   const { userId } = useContext(UserContext); // Get logged-in user ID
@@ -155,51 +157,98 @@ const VibePage = () => {
       setLoading(false); // Stop the loading animation after everything is done
     }
   };
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const cancelTokenRef = useRef(null); // Store cancel token persistently
+
+  // import { useRef } from "react"; // Import useRef to persist cancel token across renders
+
+  // const cancelTokenRef = useRef(null); // Store cancel token persistently
+  let requestCount = 0; // 🔥 Track API requests
 
   const fetchSongDetails = async (songs) => {
     if (!accessToken) return;
 
-    const details = await Promise.all(
-      songs.map(async (song) => {
-        const [track, artistPart] = song.entity.split(" by ");
-        const [artist] = artistPart.split(" from ");
+    let firstResultShown = false;
 
-        try {
-          const spotifyResponse = await axios.get("https://api.spotify.com/v1/search", {
-            headers: { Authorization: `Bearer ${accessToken}` },
-            params: { q: `track:${track.trim()} artist:${artist.trim()}`, type: "track", limit: 1 },
+    // ✅ Cancel any ongoing requests before starting a new one
+    if (cancelTokenRef.current) {
+      cancelTokenRef.current.cancel("User navigated back, stopping requests.");
+    }
+
+    // ✅ Create a new cancel token for this request cycle
+    cancelTokenRef.current = axios.CancelToken.source();
+
+    // ✅ Reset UI for a fresh search
+    setCurrentIndex(0);
+    setSongDetails([]);
+    setShowOverlay(false);
+    requestCount = 0; // Reset request count
+    const topSongs = songs.slice(0, 10);
+    for (const song of topSongs) {
+      const [track, artistPart] = song.entity.split(" by ");
+      const [artist] = artistPart.split(" from ");
+
+      try {
+        requestCount++;
+        console.log(`🔍 Request #${requestCount}: Searching for "${track} by ${artist}"`);
+
+        const spotifyResponse = await axios.get("https://api.spotify.com/v1/search", {
+          headers: { Authorization: `Bearer ${accessToken}` },
+          params: { q: `track:${track.trim()} artist:${artist.trim()}`, type: "track", limit: 1 },
+          cancelToken: cancelTokenRef.current.token,
+        });
+
+        if (spotifyResponse.data.tracks.items.length > 0) {
+          const trackData = spotifyResponse.data.tracks.items[0];
+          const spotifyUrl = trackData.external_urls.spotify;
+
+          // 🔥 Fetch oEmbed HTML using Spotify's oEmbed API
+          const oEmbedResponse = await axios.get("https://open.spotify.com/oembed", {
+            params: { url: spotifyUrl },
+            cancelToken: cancelTokenRef.current.token,
           });
 
-          if (spotifyResponse.data.tracks.items.length > 0) {
-            const trackData = spotifyResponse.data.tracks.items[0];
-            const spotifyUrl = trackData.external_urls.spotify;
-            // const embedHtml = await fetchSpotifyEmbed(spotifyUrl); // Fetch the embed
+          const songDetail = {
+            name: trackData.name,
+            artist: trackData.artists.map((artist) => artist.name).join(", "),
+            releaseDate: trackData.album.release_date,
+            albumCover: trackData.album.images[0]?.url || "",
+            previewUrl: trackData.preview_url || "",
+            spotifyUrl: spotifyUrl,
+            embedHtml: oEmbedResponse.data.html,
+          };
 
-            return {
-              name: trackData.name,
-              artist: trackData.artists.map((artist) => artist.name).join(", "),
-              albumCover: trackData.album.images[0]?.url || "",
-              spotifyUrl: spotifyUrl,
-              // embedHtml: embedHtml,
-            };
+          setSongDetails((prevDetails) => [...prevDetails, songDetail]);
+
+          if (!firstResultShown) {
+            setShowOverlay(true);
+            firstResultShown = true;
           }
-        } catch (error) {
-          console.error(`Error searching for song "${song.entity}":`, error);
-          return null;
         }
-      })
-    );
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log(`⏹ Request #${requestCount} cancelled: "${song.entity}"`);
+          return;
+        } else {
+          console.error(`Error in request #${requestCount} for "${song.entity}":`, error);
+        }
+      }
 
-    setSongDetails(details.filter((detail) => detail !== null)); // Filter out failed responses
-    setShowOverlay(true);
-    setCurrentIndex(0);
-  };
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % songDetails.length);
+      await delay(2500); // Keep rate limit protection
+    }
+
+    console.log(`Total API Requests Made: ${requestCount}`);
   };
 
   const handleClose = () => {
+    if (cancelTokenRef.current) {
+      cancelTokenRef.current.cancel("User navigated back, stopping requests.");
+    }
     setShowOverlay(false);
+    setSongDetails([]); // Clear results immediately
+  };
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % songDetails.length);
   };
 
   const saveToLibrary = async (album) => {

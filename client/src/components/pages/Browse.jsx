@@ -68,7 +68,7 @@ const allPresetSearches = [
   { title: "Volcanic bass cave", query: "volcanic bass cave" },
 ];
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 1;
 
 const getNextPrompts = (startIndex) => {
   const wrappedIndex = startIndex % allPresetSearches.length;
@@ -138,9 +138,9 @@ const Browse = () => {
 
   useEffect(() => {
     if (!accessToken) return;
-
+    // const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
     const fetchCategoryResults = async () => {
-      for (let i = 0; i < presetSearches.length; i++) {
+      for (let i = 0; i < 1; i++) {
         setCurrentLoadingIndex(i);
         const category = presetSearches[i];
         try {
@@ -151,8 +151,8 @@ const Browse = () => {
           if (recommendResponse.data && recommendResponse.data.results) {
             const songs = recommendResponse.data.results;
             const details = [];
-
-            for (const song of songs) {
+            const topSongs = songs.slice(0, 6);
+            for (const song of topSongs) {
               const [track, artistPart] = song.entity.split(" by ");
               const [artist] = artistPart.split(" from ");
 
@@ -167,9 +167,15 @@ const Browse = () => {
                     limit: 1,
                   },
                 });
-
                 if (spotifyResponse.data.tracks.items.length > 0) {
                   const track = spotifyResponse.data.tracks.items[0];
+                  const spotifyUrl = track.external_urls.spotify;
+
+                  // Fetch oEmbed HTML for the song
+                  const oEmbedResponse = await axios.get("https://open.spotify.com/oembed", {
+                    params: { url: spotifyUrl },
+                  });
+
                   details.push({
                     id: track.id,
                     name: track.name,
@@ -178,6 +184,7 @@ const Browse = () => {
                     albumCover: track.album.images[0]?.url || "",
                     previewUrl: track.preview_url || "",
                     spotifyUrl: track.external_urls.spotify,
+                    embedHtml: oEmbedResponse.data.html, // Embed HTML for song
                   });
                 }
               } catch (error) {
@@ -193,7 +200,7 @@ const Browse = () => {
           console.error(`Error fetching results for ${category.title}:`, error);
         }
         // Add a delay between categories
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        // await new Promise((resolve) => setTimeout(resolve, 1000));
       }
     };
 

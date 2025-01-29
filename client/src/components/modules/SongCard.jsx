@@ -12,6 +12,7 @@ const SongCard = ({
   onSave,
 }) => {
   if (!album) return null;
+  console.log("📀 SongCard received:", album);
 
   return (
     <div className="songcard-overlay">
@@ -45,6 +46,11 @@ const SongCard = ({
             </audio>
           ) : (
             <p className="no-preview">No preview available</p>
+          )}
+          {album.embedHtml ? (
+            <div className="spotify-embed" dangerouslySetInnerHTML={{ __html: album.embedHtml }} />
+          ) : (
+            <img className="album-cover" src={album.albumCover} alt={album.name} />
           )}
 
           <a
