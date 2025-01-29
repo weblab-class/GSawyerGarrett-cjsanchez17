@@ -139,7 +139,7 @@ const Browse = () => {
         setCurrentLoadingIndex(i);
         const category = presetSearches[i];
         try {
-          const recommendResponse = await axios.get("http://3.13.227.224:8000/recommend/", {
+          const recommendResponse = await axios.get("https://vibecheckapi.com/recommend/", {
             params: { query: category.query },
           });
 
