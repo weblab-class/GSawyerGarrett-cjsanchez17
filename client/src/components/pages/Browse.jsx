@@ -331,8 +331,8 @@ const Browse = () => {
             >
               <h2 className="category-title">{category.title}</h2>
               <div className="browse-scrollable">
-                {Array.from(new Set(categoryResults[category.title]?.map((album) => album.id))) // ✅ Ensure uniqueness
-                  .map((id) => categoryResults[category.title].find((album) => album.id === id)) // Find first occurrence
+                {Array.from(new Set(categoryResults[category.title]?.map((album) => album.id)))
+                  .map((id) => categoryResults[category.title].find((album) => album.id === id))
                   .map((album) => (
                     <div
                       key={album.id}
@@ -343,6 +343,8 @@ const Browse = () => {
                       <p className="album-name">{album.name}</p>
                     </div>
                   ))}
+                {!categoryResults[category.title] &&
+                  Array.from({ length: 20 }).map((_, i) => <LoadingItem key={i} />)}
               </div>
             </div>
           ))}
