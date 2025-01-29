@@ -43,7 +43,27 @@ const allPresetSearches = [
   { title: "Storm cloud metal", query: "storm cloud metal" },
   { title: "Silk road dreams", query: "silk road dreams" },
   { title: "Lunar garden ambient", query: "lunar garden ambient" },
-  { title: "Savage jungle bass", query: "savage jungle bass" }
+  { title: "Savage jungle bass", query: "savage jungle bass" },
+  { title: "Neon sunset drive", query: "neon sunset drive" },
+  { title: "Ancient temple echoes", query: "ancient temple echoes" },
+  { title: "Midnight forest rave", query: "midnight forest rave" },
+  { title: "Desert wind trance", query: "desert wind trance" },
+  { title: "Ethereal dream pop", query: "ethereal dream pop" },
+  { title: "Volcanic jungle drums", query: "volcanic jungle drums" },
+  { title: "Arctic aurora ambient", query: "arctic aurora ambient" },
+  { title: "Underground bass cave", query: "underground bass cave" },
+  { title: "Celestial harp dreams", query: "celestial harp dreams" },
+  { title: "Mystic desert winds", query: "mystic desert winds" },
+  { title: "Cyber alley synthwave", query: "cyber alley synthwave" },
+  { title: "Crystal waterfall zen", query: "crystal waterfall zen" },
+  { title: "Savage metal storm", query: "savage metal storm" },
+  { title: "Midnight jazz cafe", query: "midnight jazz cafe" },
+  { title: "Neon ghost dance", query: "neon ghost dance" },
+  { title: "Ocean cave ambient", query: "ocean cave ambient" },
+  { title: "Mountain storm metal", query: "mountain storm metal" },
+  { title: "Dystopian city beats", query: "dystopian city beats" },
+  { title: "Zen garden dreams", query: "zen garden dreams" },
+  { title: "Volcanic bass cave", query: "volcanic bass cave" },
 ];
 
 const ITEMS_PER_PAGE = 6;
@@ -301,6 +321,11 @@ const Browse = () => {
               </div>
             </div>
           ))}
+
+          <div className="refresh-row fade-in" onClick={() => window.location.reload()}>
+            <span>Refresh the page for more vibes</span>
+            <span className="refresh-icon">↻</span>
+          </div>
         </div>
       </div>
     </div>
