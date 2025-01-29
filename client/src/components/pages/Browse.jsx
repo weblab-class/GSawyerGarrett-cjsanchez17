@@ -1,7 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import "./Browse.css";
 import SongCard from "../modules/SongCard"; // Import SongCard component
 import axios from "axios";
+import { post } from "../../utilities"; // Import post function
+import { UserContext } from "../App"; // Get user info
 
 const allPresetSearches = [
   { title: "Summer morning chill", query: "summer morning chill" },
@@ -87,6 +89,7 @@ const CLIENT_ID = "c708b6906aeb425ab539cf51c38157d4";
 const CLIENT_SECRET = "5a1c3ea5e2de419b91b640b371a6149d";
 
 const Browse = () => {
+  const { userId } = useContext(UserContext); // Get logged-in user ID\
   const rowsRef = useRef([]);
   const [selectedAlbum, setSelectedAlbum] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -256,6 +259,27 @@ const Browse = () => {
     setCurrentIndex(0);
   };
 
+  const saveToLibrary = async (album) => {
+    if (!userId) {
+      alert("You need to log in to save songs.");
+      return;
+    }
+
+    const songData = {
+      track: album.name,
+      artist: album.artist,
+      vibe: selectedCategory, // Save the searched vibe
+      cover: album.albumCover,
+    };
+
+    try {
+      await post("/api/library", songData);
+      alert(`"${album.name}" has been saved to your library!`);
+    } catch (err) {
+      console.error("Error saving song:", err);
+      alert("Failed to save song.");
+    }
+  };
   return (
     <div className="browse-wrapper">
       {showOverlay && selectedCategory && categoryResults[selectedCategory] && (
@@ -265,6 +289,7 @@ const Browse = () => {
           onNext={handleNext}
           onPrevious={handlePrevious}
           query={selectedCategory}
+          onSave={saveToLibrary}
           currentIndex={currentIndex}
           totalTracks={categoryResults[selectedCategory].length}
         />
@@ -306,18 +331,18 @@ const Browse = () => {
             >
               <h2 className="category-title">{category.title}</h2>
               <div className="browse-scrollable">
-                {categoryResults[category.title]
-                  ? categoryResults[category.title].map((album) => (
-                      <div
-                        key={album.id}
-                        className="browse-item"
-                        onClick={() => handleSelectAlbum(album, category.title)}
-                      >
-                        <img src={album.albumCover} alt={album.name} className="album-image" />
-                        <p className="album-name">{album.name}</p>
-                      </div>
-                    ))
-                  : Array.from({ length: 20 }).map((_, i) => <LoadingItem key={i} />)}
+                {Array.from(new Set(categoryResults[category.title]?.map((album) => album.id))) // ✅ Ensure uniqueness
+                  .map((id) => categoryResults[category.title].find((album) => album.id === id)) // Find first occurrence
+                  .map((album) => (
+                    <div
+                      key={album.id}
+                      className="browse-item"
+                      onClick={() => handleSelectAlbum(album, category.title)}
+                    >
+                      <img src={album.albumCover} alt={album.name} className="album-image" />
+                      <p className="album-name">{album.name}</p>
+                    </div>
+                  ))}
               </div>
             </div>
           ))}
