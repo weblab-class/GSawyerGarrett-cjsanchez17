@@ -155,6 +155,10 @@
   border-radius: 10px;
 }
 
+.browse-item.loading {
+  background: transparent;
+}
+
 .album-image {
   width: 100%;
   height: 180px;
@@ -164,8 +168,71 @@
   transition: transform 0.3s ease-in-out;
 }
 
+.loading-album-image {
+  width: 180px;
+  height: 180px;
+  background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 10px;
+}
+
 .browse-item:hover .album-image {
   transform: scale(1.05);
+}
+
+.loading-album-name {
+  height: 20px;
+  width: 80%;
+  margin: 10px auto;
+  background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.navigation-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.nav-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 10px 20px;
+  transition: opacity 0.3s ease;
+}
+
+.nav-button:hover {
+  opacity: 0.7;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 10px 20px;
+  transition: opacity 0.3s ease;
+}
+
+.back-button:hover {
+  opacity: 0.7;
 }
 
 @media (max-width: 768px) {
