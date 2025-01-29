@@ -8,6 +8,7 @@ import SongCard from "./components/modules/SongCard";
 import Library from "./components/pages/Library";
 import Profile from "./components/pages/Profile";
 import Browse from "./components/pages/Browse";
+import AboutPage from "./components/pages/AboutPage";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
       <Route path="/profile" element={<Profile />} />
       <Route path="/browse" element={<Browse />} />
       <Route path="/song/:id" element={<SongCard />} />
+      <Route path="/about" element={<AboutPage />} />
     </Route>
   )
 );

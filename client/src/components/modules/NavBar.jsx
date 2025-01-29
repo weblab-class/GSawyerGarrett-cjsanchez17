@@ -24,7 +24,9 @@ const NavBar = () => {
         <Link to="/profile" className="NavBar-center">
           Profile
         </Link>
-
+        <Link to="/about" className="NavBar-center">
+          About
+        </Link>
         <div className="NavBar-authContainer">
           {userId ? (
             <button
