@@ -59,9 +59,11 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    // Fetch user info from the backend
     get("/api/whoami")
-      .then((user) => setUser(user))
+      .then((user) => {
+        setUser(user);
+        return get("/api/recentSearch"); // Fetch the recent search after user data is fetched
+      })
       .catch((err) => console.error("Error fetching user data:", err));
   }, []);
 
@@ -89,16 +91,8 @@ const Profile = () => {
         </div>
       </div>
       <div className="profile-text">
-        <h2>{user.name}</h2>
-        <p>
-          Total songs saved: <span>150</span>
-        </p>
-        <p>
-          Total queries: <span>345</span>
-        </p>
-        <p>
-          Date account created: <span>2023-05-12</span>
-        </p>
+        <h2>{user.name || "Guest"}</h2>
+        <p> Certified Viber: Yes</p>
       </div>
     </div>
   );
