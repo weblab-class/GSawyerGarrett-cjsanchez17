@@ -1,6 +1,6 @@
 import React from "react";
 import "./AboutPage.css";
-
+import { Link } from "react-router-dom";
 function About() {
   return (
     <div className="about-container">
@@ -45,7 +45,19 @@ function About() {
         <div className="about-model-box">
           <h2 className="about-subtitle">Our Model</h2>
           <p className="about-text">
-            (Insert details about how the recommendation model works, if applicable.)
+            We built a word embedding model to generate a music recommendation system. We used a
+            pretrained dataset containing vector mappings for a heavily musical vocabulary.
+            Realizing that this wasn't enough, we trained our own model on 37 of the most popular
+            music subreddits. Our model generates a combined embedding for your queries which then
+            finds the songs that best match your vibe, thanks to a large dataset of song-vector
+            mappings. In simple terms, search whatever vibe you want to hear and we'll try our best
+            to find songs that match it!
+          </p>
+          <p className="about-text">
+            Link to Code:
+            <Link to="https://github.com/cjsanchez17/vibe">
+              https://github.com/cjsanchez17/vibe
+            </Link>
           </p>
         </div>
       </div>

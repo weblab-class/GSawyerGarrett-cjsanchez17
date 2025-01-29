@@ -97,10 +97,35 @@ vite.config.js
 Text/font - apple san francisco font style from stack overflow
 https://stackoverflow.com/questions/32660748/how-to-use-apples-san-francisco-font-on-a-webpage
 
-windsurf code editor - used cascade assistant to help debug and gather inspiration across project
+windsurf code editor - used cascade assistant to help debug code and gather inspiration across project
 
-chat gpt - used to help debug and gather inspiration across project
+chat gpt - used to help debug code and gather inspiration across project
 
 animations - used many resources to learn about css animation -https://web.dev/learn/css/animations -https://www.w3schools.com/css/css3_animations.asp -https://www.youtube.com/watch?v=SgmNxE9lWcY -https://cssanimation.rocks/ - great learning tool
 
 eye tracking - took inspiration from this video: https://www.youtube.com/watch?v=iW3gAktFD90
+
+Musical word embedding inspiration:
+@article{doh2024musical,
+title={Musical Word Embedding for Music Tagging and Retrieval},
+author={Doh, SeungHeon and Lee, Jongpil and Jeong, Dasaem and Nam, Juhan},
+journal={update_soon},
+year={2024}
+}
+
+@inproceedings{doh2021million,
+title={Million song search: Web interface for semantic music search using musical word embedding},
+author={Doh, S and Lee, Jongpil and Nam, Juhan},
+booktitle={International Society for Music Information Retrieval Conference, ISMIR},
+year={2021}
+}
+
+@article{doh2020musical,
+title={Musical word embedding: Bridging the gap between listening contexts and music},
+author={Doh, Seungheon and Lee, Jongpil and Park, Tae Hong and Nam, Juhan},
+journal={arXiv preprint arXiv:2008.01190},
+year={2020}
+}
+
+Used: fasttext (model), aws s3 (large file storage), aws ec2 (host custom api running python code), Spotify API, FAISS (model),
+Reddit (model training), aws route 53 (custom https domain for custom api), fastAPI (to run custom api)

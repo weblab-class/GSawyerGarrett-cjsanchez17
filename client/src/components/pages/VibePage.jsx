@@ -170,15 +170,12 @@ const VibePage = () => {
 
     let firstResultShown = false;
 
-    // ✅ Cancel any ongoing requests before starting a new one
     if (cancelTokenRef.current) {
       cancelTokenRef.current.cancel("User navigated back, stopping requests.");
     }
 
-    // ✅ Create a new cancel token for this request cycle
     cancelTokenRef.current = axios.CancelToken.source();
 
-    // ✅ Reset UI for a fresh search
     setCurrentIndex(0);
     setSongDetails([]);
     setShowOverlay(false);
@@ -190,7 +187,7 @@ const VibePage = () => {
 
       try {
         requestCount++;
-        console.log(`🔍 Request #${requestCount}: Searching for "${track} by ${artist}"`);
+        console.log(` Request #${requestCount}: Searching for "${track} by ${artist}"`);
 
         const spotifyResponse = await axios.get("https://api.spotify.com/v1/search", {
           headers: { Authorization: `Bearer ${accessToken}` },
@@ -202,7 +199,6 @@ const VibePage = () => {
           const trackData = spotifyResponse.data.tracks.items[0];
           const spotifyUrl = trackData.external_urls.spotify;
 
-          // 🔥 Fetch oEmbed HTML using Spotify's oEmbed API
           const oEmbedResponse = await axios.get("https://open.spotify.com/oembed", {
             params: { url: spotifyUrl },
             cancelToken: cancelTokenRef.current.token,
@@ -301,7 +297,7 @@ const VibePage = () => {
           <div className="search-bar">
             <input
               type="text"
-              placeholder="Search the vibe you want to explore..."
+              placeholder="Search any music vibe you want to explore..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />

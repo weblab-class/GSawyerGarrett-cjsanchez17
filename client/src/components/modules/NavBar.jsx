@@ -21,11 +21,11 @@ const NavBar = () => {
         <Link to="/library" className="NavBar-center">
           Library
         </Link>
-        <Link to="/profile" className="NavBar-center">
-          Profile
-        </Link>
         <Link to="/about" className="NavBar-center">
           About
+        </Link>
+        <Link to="/profile" className="NavBar-center">
+          Profile
         </Link>
         <div className="NavBar-authContainer">
           {userId ? (
