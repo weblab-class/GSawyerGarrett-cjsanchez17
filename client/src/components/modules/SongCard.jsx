@@ -53,38 +53,32 @@ const SongCard = ({
             target="_blank"
             rel="noopener noreferrer"
           >
-            🎧 Listen on Spotify
+            Listen on Spotify
           </a>
         </div>
 
         {/* Track Counter */}
         <div className="track-counter">
-          Track {currentIndex + 1} of {totalTracks}
+          {currentIndex + 1}/{totalTracks}
         </div>
 
-        {/* ✅ Save Button (New) */}
+        {/* Save Button */}
         <button className="save-button" onClick={() => onSave(album)}>
-          💾 Save to Library
+          Save to Library
         </button>
       </div>
 
-      {/* Previous Button */}
-      <button
-        className="previous-button"
-        onClick={onPrevious}
-        style={{ opacity: onPrevious ? 1 : 0.5, pointerEvents: onPrevious ? "auto" : "none" }}
-      >
-        ← Previous
-      </button>
-
-      {/* Next Button */}
-      <button
-        className="next-button"
-        onClick={onNext}
-        style={{ opacity: onNext ? 1 : 0.5, pointerEvents: onNext ? "auto" : "none" }}
-      >
-        Next →
-      </button>
+      {/* Navigation Controls */}
+      {currentIndex > 0 && (
+        <button className="previous-button" onClick={onPrevious}>
+          ←
+        </button>
+      )}
+      {currentIndex < totalTracks - 1 && (
+        <button className="next-button" onClick={onNext}>
+          →
+        </button>
+      )}
     </div>
   );
 };
