@@ -33,6 +33,13 @@ const Library = () => {
 
   return (
     <div className="library-container">
+      {/* Animated Background Dots (Doesn't Affect Anything Else) */}
+      <div className="animated-background">
+        {[...Array(1000)].map((_, i) => (
+          <div key={i} className="tiny-dot" />
+        ))}
+      </div>
+
       <div className="library-section">
         <h2 className="library-title">Saved Songs</h2>
         <div className="library-scrollable library-grid">
@@ -63,7 +70,9 @@ const Library = () => {
               </div>
             ))
           ) : (
-            <p>No saved songs yet!</p>
+            <div className="no-songs-container">
+              <p className="no-songs-message">No saved songs yet!</p>
+            </div>
           )}
         </div>
       </div>

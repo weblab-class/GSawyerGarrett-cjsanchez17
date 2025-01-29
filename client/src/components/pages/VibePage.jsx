@@ -5,9 +5,74 @@ import axios from "axios";
 import SongCard from "../modules/SongCard";
 import { post } from "../../utilities"; // Import post function
 import { UserContext } from "../App"; // Get user info
+import album1 from "../../assets/album1.webp";
+import album2 from "../../assets/album2.webp";
+import album3 from "../../assets/album3.webp";
+import album4 from "../../assets/album4.webp";
+import album5 from "../../assets/album5.webp";
+import album6 from "../../assets/album6.webp";
+import album7 from "../../assets/album7.webp";
+import album8 from "../../assets/album8.webp";
+import album9 from "../../assets/album9.webp";
+import album10 from "../../assets/album10.webp";
+import album11 from "../../assets/album11.webp";
+import album12 from "../../assets/album12.webp";
+import album13 from "../../assets/album13.webp";
+import album14 from "../../assets/album14.webp";
+import album15 from "../../assets/album15.webp";
+import album16 from "../../assets/album16.webp";
+import album17 from "../../assets/album17.webp";
+import album18 from "../../assets/album18.webp";
+import album19 from "../../assets/album19.webp";
+import album20 from "../../assets/album20.webp";
+import album21 from "../../assets/album21.webp";
+import album22 from "../../assets/album22.webp";
+import album23 from "../../assets/album23.webp";
+import album24 from "../../assets/album24.webp";
+import album25 from "../../assets/album25.webp";
+import album26 from "../../assets/album26.webp";
+import album27 from "../../assets/album27.webp";
+import album28 from "../../assets/album28.webp";
+import album29 from "../../assets/album29.webp";
+import album30 from "../../assets/album30.webp";
 
-const CLIENT_ID = "c708b6906aeb425ab539cf51c38157d4";
-const CLIENT_SECRET = "5a1c3ea5e2de419b91b640b371a6149d";
+const ALBUM_COVERS = [
+  album1,
+  album2,
+  album3,
+  album4,
+  album5,
+  album6,
+  album7,
+  album8,
+  album9,
+  album10,
+  album11,
+  album12,
+  album13,
+  album14,
+  album15,
+  album16,
+  album17,
+  album18,
+  album19,
+  album20,
+  album21,
+  album22,
+  album23,
+  album24,
+  album25,
+  album26,
+  album27,
+  album28,
+  album29,
+  album30,
+];
+
+// const CLIENT_ID = "c708b6906aeb425ab539cf51c38157d4";
+// const CLIENT_SECRET = "5a1c3ea5e2de419b91b640b371a6149d";
+const CLIENT_ID = "f29a728065c147a1b8b7dcb81712fe6b";
+const CLIENT_SECRET = "77672cc851f14b1582f45905873c38fb";
 
 const VibePage = () => {
   const { userId } = useContext(UserContext); // Get logged-in user ID
@@ -22,7 +87,10 @@ const VibePage = () => {
   const [showOverlay, setShowOverlay] = useState(false);
   const [accessToken, setAccessToken] = useState("");
   const [randomWord, setRandomWord] = useState("Searching");
-
+  useEffect(() => {
+    const shuffledCovers = [...ALBUM_COVERS].sort(() => 0.5 - Math.random()).slice(0, 30);
+    setAlbumCovers(shuffledCovers);
+  }, []);
   const loadingPhrases = [
     "Navigating the multiverse of music",
     "Doing some heavy lifting",
@@ -55,34 +123,6 @@ const VibePage = () => {
 
     fetchAccessToken();
   }, []);
-  useEffect(() => {
-    const fetchAlbumCovers = async () => {
-      if (!accessToken) return;
-      try {
-        const response = await axios.get(
-          "https://api.spotify.com/v1/browse/new-releases?limit=30",
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
-        );
-
-        if (response.data.albums && response.data.albums.items) {
-          const covers = response.data.albums.items.map((album) => album.images[0]?.url);
-          setAlbumCovers(covers);
-        }
-      } catch (error) {
-        console.error("Error fetching album covers:", error);
-        setError("Failed to load album covers.");
-      }
-    };
-
-    if (accessToken) {
-      fetchAlbumCovers();
-      setTimeout(() => setLoaded(true), 200);
-    }
-  }, [accessToken]);
 
   const handleSearch = async () => {
     if (!query.trim()) return;
@@ -117,35 +157,40 @@ const VibePage = () => {
   };
 
   const fetchSongDetails = async (songs) => {
-    const details = [];
+    if (!accessToken) return;
 
-    for (const song of songs) {
-      const [track, artistPart] = song.entity.split(" by ");
-      const [artist] = artistPart.split(" from ");
+    const details = await Promise.all(
+      songs.map(async (song) => {
+        const [track, artistPart] = song.entity.split(" by ");
+        const [artist] = artistPart.split(" from ");
 
-      try {
-        const spotifyResponse = await axios.get("https://api.spotify.com/v1/search", {
-          headers: { Authorization: `Bearer ${accessToken}` },
-          params: { q: `track:${track.trim()} artist:${artist.trim()}`, type: "track", limit: 1 },
-        });
-
-        if (spotifyResponse.data.tracks.items.length > 0) {
-          const track = spotifyResponse.data.tracks.items[0];
-          details.push({
-            name: track.name,
-            artist: track.artists.map((artist) => artist.name).join(", "),
-            releaseDate: track.album.release_date,
-            albumCover: track.album.images[0]?.url || "",
-            previewUrl: track.preview_url || "",
-            spotifyUrl: track.external_urls.spotify, // Spotify track URL
+        try {
+          const spotifyResponse = await axios.get("https://api.spotify.com/v1/search", {
+            headers: { Authorization: `Bearer ${accessToken}` },
+            params: { q: `track:${track.trim()} artist:${artist.trim()}`, type: "track", limit: 1 },
           });
-        }
-      } catch (error) {
-        console.error(`Error searching for song "${song.entity}":`, error);
-      }
-    }
 
-    setSongDetails(details);
+          if (spotifyResponse.data.tracks.items.length > 0) {
+            const trackData = spotifyResponse.data.tracks.items[0];
+            const spotifyUrl = trackData.external_urls.spotify;
+            // const embedHtml = await fetchSpotifyEmbed(spotifyUrl); // Fetch the embed
+
+            return {
+              name: trackData.name,
+              artist: trackData.artists.map((artist) => artist.name).join(", "),
+              albumCover: trackData.album.images[0]?.url || "",
+              spotifyUrl: spotifyUrl,
+              // embedHtml: embedHtml,
+            };
+          }
+        } catch (error) {
+          console.error(`Error searching for song "${song.entity}":`, error);
+          return null;
+        }
+      })
+    );
+
+    setSongDetails(details.filter((detail) => detail !== null)); // Filter out failed responses
     setShowOverlay(true);
     setCurrentIndex(0);
   };

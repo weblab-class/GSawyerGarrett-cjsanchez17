@@ -1,113 +1,162 @@
 .library-container {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   height: 100vh;
-  padding: 40px;
-  background-color: #000;
+  width: 100vw;
+  padding: 20px;
+
   color: #fff;
   font-family: "Orbitron", sans-serif;
-  gap: 20px;
+  overflow-y: auto;
 }
 
 .library-section {
-  width: 45%;
+  width: 80%;
+  max-width: 1200px;
+  height: 100%;
   padding: 20px;
-  border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
   text-align: center;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 .library-title {
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 28px;
+  margin-bottom: 20px;
   border-bottom: 2px solid rgba(255, 255, 255, 0.2);
   padding-bottom: 10px;
-  text-transform: uppercase;
+
   letter-spacing: 2px;
 }
 
 .library-scrollable {
-  max-height: 500px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  max-height: 85vh;
   overflow-y: auto;
   padding-right: 10px;
 }
 
-.library-scrollable::-webkit-scrollbar {
-  width: 8px;
-}
-
-.library-scrollable::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.library-scrollable::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 10px;
-}
-
-.library-scrollable::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.7);
-}
-
 .library-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  padding-top: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 80px 30px; /* More space between rows (60px), same columns (30px) */
+  width: 100%;
 }
 
 .library-item {
-  width: 100%;
-  position: relative;
+  width: 180px;
+  height: 230px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0; /* Remove padding */
   transition: transform 0.3s ease;
 }
 
 .library-item:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .album-cover {
   width: 100%;
-  height: 150px;
+  height: 160px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  margin-bottom: 5px; /* Force it closer to the title */
 }
 
 .album-title {
-  margin-top: 5px;
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 1px;
   color: #fff;
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-}
-
-.library-search-block {
-  width: 100%;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-  transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.library-search-block:hover {
-  transform: scale(1.05);
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-.search-title {
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: #fff;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
   text-align: center;
+  width: 100%; /* Ensures text is constrained */
+  max-width: 160px; /* Adjust width to match album cover */
+  white-space: nowrap; /* Prevents text from wrapping */
+  overflow: hidden; /* Hides overflowing text */
+  text-overflow: ellipsis; /* Adds "..." when text is too long */
+  display: inline-block; /* Ensures width is respected */
+  line-height: 1.2; /* Keeps text vertically aligned */
+}
+
+.remove-song-btn {
+  margin-top: 5px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: bold;
+  color: white; /* Start with white text */
+  background: transparent; /* No fill */
+  border: 2px solid white; /* White border */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.remove-song-btn:hover {
+  background: white; /* Fill with white */
+  color: black; /* Change text to black */
+  border-color: white; /* Keep border white */
+}
+
+.animated-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 40px; /* Spacing between dots */
+  z-index: -1;
+  pointer-events: none;
+}
+
+.tiny-dot {
+  width: 3px; /* Small dots */
+  height: 3px;
+  background-color: rgba(135, 135, 135, 0.334);
+  border-radius: 50%;
+  animation: fadeInOut 10s infinite ease-in-out alternate;
+}
+
+/* Smooth pulsing effect */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
+.no-songs-container {
+  position: absolute; /* Ensures full-page positioning */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centers exactly */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Ensures full width */
+  height: auto; /* Prevents unnecessary stretching */
+  text-align: center;
+  pointer-events: none; /* Ensures it doesn’t interfere with other elements */
+}
+
+.no-songs-message {
+  font-size: 28px; /* Bigger text */
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.85); /* Slightly lighter white */
 }
