@@ -1,8 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./Profile.css";
+import { UserContext } from "../App";
+import { get } from "../../utilities"; // Import post function
 
 const Profile = () => {
   const profileRef = useRef(null);
+  const [user, setUser] = useState(null);
   const [mousePosition, setMousePosition] = useState({
     x: window.innerWidth / 2,
     y: window.innerHeight / 2,
@@ -55,6 +58,17 @@ const Profile = () => {
     ));
   };
 
+  useEffect(() => {
+    // Fetch user info from the backend
+    get("/api/whoami")
+      .then((user) => setUser(user))
+      .catch((err) => console.error("Error fetching user data:", err));
+  }, []);
+
+  if (!user) {
+    return <div>Loading...</div>; // Show loading if user info is not available
+  }
+
   return (
     <div className="profile-wrapper">
       <div className="grid-background">{generateGrid()}</div>
@@ -75,7 +89,7 @@ const Profile = () => {
         </div>
       </div>
       <div className="profile-text">
-        <h2>Username</h2>
+        <h2>{user.name}</h2>
         <p>
           Total songs saved: <span>150</span>
         </p>
