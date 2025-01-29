@@ -1,7 +1,16 @@
 import React from "react";
 import "./SongCard.css";
 
-const SongCard = ({ album, onClose, onNext, onPrevious, query, currentIndex, totalTracks }) => {
+const SongCard = ({
+  album,
+  onClose,
+  onNext,
+  onPrevious,
+  query,
+  currentIndex,
+  totalTracks,
+  onSave,
+}) => {
   if (!album) return null;
 
   return (
@@ -52,6 +61,11 @@ const SongCard = ({ album, onClose, onNext, onPrevious, query, currentIndex, tot
         <div className="track-counter">
           Track {currentIndex + 1} of {totalTracks}
         </div>
+
+        {/* ✅ Save Button (New) */}
+        <button className="save-button" onClick={() => onSave(album)}>
+          💾 Save to Library
+        </button>
       </div>
 
       {/* Previous Button */}

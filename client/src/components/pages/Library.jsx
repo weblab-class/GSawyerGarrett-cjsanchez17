@@ -1,45 +1,69 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Library.css";
-
-import cover1 from "../../assets/cover1.jpeg";
-import cover2 from "../../assets/cover2.jpeg";
-import cover3 from "../../assets/cover3.jpeg";
+import { UserContext } from "../App";
+import { get, post } from "../../utilities";
 
 const Library = () => {
-  const savedSongs = Array.from({ length: 20 }, (_, index) => ({
-    id: index + 1,
-    title: `Song ${index + 1}`,
-    cover: [cover1, cover2, cover3][index % 3],
-  }));
+  const [savedSongs, setSavedSongs] = useState([]);
+  const userId = useContext(UserContext);
 
-  const savedSearches = Array.from({ length: 20 }, (_, index) => ({
-    id: index + 1,
-    title: `Search ${index + 1}`,
-  }));
+  // Fetch saved songs from the backend
+  useEffect(() => {
+    if (userId) {
+      get("/api/library")
+        .then((songs) => setSavedSongs(songs))
+        .catch((err) => console.error("Error fetching library:", err));
+    }
+  }, [userId]);
+
+  // Add a new song to the library
+  const addNewSong = async (song) => {
+    try {
+      const newSong = await post("/api/library", song);
+      setSavedSongs([newSong, ...savedSongs]);
+    } catch (err) {
+      console.error("Error adding new song:", err);
+    }
+  };
 
   return (
     <div className="library-container">
       <div className="library-section">
         <h2 className="library-title">Saved Songs</h2>
         <div className="library-scrollable library-grid">
-          {savedSongs.map((song) => (
-            <div key={song.id} className="library-item">
-              <img src={song.cover} alt={song.title} className="album-cover" />
-              <p className="album-title">{song.title}</p>
-            </div>
-          ))}
+          {savedSongs.length > 0 ? (
+            savedSongs.map((song) => (
+              <div key={song._id} className="library-item">
+                <img
+                  src={song.cover || "../../assets/placeholder.jpeg"}
+                  alt={song.track}
+                  className="album-cover"
+                />
+                <p className="album-title">{song.track}</p>
+                <p className="album-artist">{song.artist}</p>
+              </div>
+            ))
+          ) : (
+            <p>No saved songs yet!</p>
+          )}
         </div>
       </div>
 
+      {/* Example section to test adding songs */}
       <div className="library-section">
-        <h2 className="library-title">Recent Searches</h2>
-        <div className="library-scrollable library-grid">
-          {savedSearches.map((search) => (
-            <div key={search.id} className="library-search-block">
-              <p className="search-title">{search.title}</p>
-            </div>
-          ))}
-        </div>
+        <h2 className="library-title">Add a New Song</h2>
+        <button
+          onClick={() =>
+            addNewSong({
+              track: "Sample Track",
+              artist: "Sample Artist",
+              vibe: "Chill",
+              cover: "../../assets/sample-cover.jpeg", // Optional
+            })
+          }
+        >
+          Add Sample Song
+        </button>
       </div>
     </div>
   );
