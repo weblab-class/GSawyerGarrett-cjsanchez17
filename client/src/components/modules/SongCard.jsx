@@ -16,7 +16,7 @@ const SongCard = ({
   return (
     <div className="songcard-overlay">
       {/* Back Button */}
-      <button className="back-button" onClick={onClose}>
+      <button className="back-button" onClick={onClose} style={{ fontSize: "1.5rem" }}>
         ← Back
       </button>
 

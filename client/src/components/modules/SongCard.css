@@ -77,14 +77,15 @@
 
 .back-button {
   position: absolute;
-  top: 10%;
+  top: 5%;
   left: 10%;
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 3rem;
   color: white;
   cursor: pointer;
   transition: color 0.3s ease-in-out;
+  z-index: 1001;
 }
 
 .back-button:hover {
