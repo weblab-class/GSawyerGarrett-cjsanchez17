@@ -61,3 +61,10 @@ export function post(endpoint, params = {}) {
       throw `POST request to ${endpoint} failed with error:\n${error}`;
     });
 }
+export const del = async (url) => {
+  const response = await fetch(url, { method: "DELETE", credentials: "include" });
+  if (!response.ok) {
+    throw new Error(`API request failed with status ${response.status}`);
+  }
+  return response.json();
+};

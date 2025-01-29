@@ -86,6 +86,23 @@ router.post("/library", (req, res) => {
       res.status(500).send({ error: "Failed to save song" });
     });
 });
+router.delete("/library/:id", (req, res) => {
+  if (!req.user) {
+    return res.status(401).send({ error: "Unauthorized" });
+  }
+
+  Song.findOneAndDelete({ _id: req.params.id, user_id: req.user._id })
+    .then((deletedSong) => {
+      if (!deletedSong) {
+        return res.status(404).send({ error: "Song not found or not owned by user" });
+      }
+      res.send({ success: true, deletedSong });
+    })
+    .catch((err) => {
+      console.error("Error deleting song:", err);
+      res.status(500).send({ error: "Internal Server Error" });
+    });
+});
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {

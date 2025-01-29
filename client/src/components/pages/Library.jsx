@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./Library.css";
 import { UserContext } from "../App";
-import { get, post } from "../../utilities";
+import { get, post, del } from "../../utilities"; // Import "del" function
 
 const Library = () => {
   const [savedSongs, setSavedSongs] = useState([]);
@@ -26,6 +26,16 @@ const Library = () => {
     }
   };
 
+  // Remove a song from the library
+  const removeSong = async (songId) => {
+    try {
+      await del(`/api/library/${songId}`); // Call delete API
+      setSavedSongs(savedSongs.filter((song) => song._id !== songId)); // Update UI
+    } catch (err) {
+      console.error("Error removing song:", err);
+    }
+  };
+
   return (
     <div className="library-container">
       <div className="library-section">
@@ -41,6 +51,10 @@ const Library = () => {
                 />
                 <p className="album-title">{song.track}</p>
                 <p className="album-artist">{song.artist}</p>
+                {/* Remove Button */}
+                <button className="remove-song-btn" onClick={() => removeSong(song._id)}>
+                  Remove
+                </button>
               </div>
             ))
           ) : (
