@@ -69,10 +69,9 @@ const ALBUM_COVERS = [
   album30,
 ];
 
-// const CLIENT_ID = "c708b6906aeb425ab539cf51c38157d4"; //old timedout
-// const CLIENT_SECRET = "5a1c3ea5e2de419b91b640b371a6149d"; //old timedout
-// const CLIENT_ID = "f29a728065c147a1b8b7dcb81712fe6b";
-// const CLIENT_SECRET = "77672cc851f14b1582f45905873c38fb";
+// const CLIENT_ID = "d88a9210148347c5a18105a754470b24"; fallback 1
+// const CLIENT_SECRET = "403fa463caf448c196a673e3094c6712"; fallback 1
+
 const CLIENT_ID = "49c10d34570d4ed481fc310c7a6c0788";
 const CLIENT_SECRET = "7e0c15fcf052455ebb441d983a533307";
 
@@ -300,6 +299,11 @@ const VibePage = () => {
               placeholder="Search any music vibe you want to explore..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSearch(e);
+                }
+              }}
             />
             <button className="search-btn" onClick={handleSearch} disabled={loading}>
               <img src={searchIcon} alt="Search" />

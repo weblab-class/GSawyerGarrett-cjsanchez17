@@ -87,8 +87,8 @@ const getNextPrompts = (startIndex) => {
 const CLIENT_ID = "f29a728065c147a1b8b7dcb81712fe6b";
 const CLIENT_SECRET = "77672cc851f14b1582f45905873c38fb";
 
-// const CLIENT_ID = "c708b6906aeb425ab539cf51c38157d4";
-// const CLIENT_SECRET = "5a1c3ea5e2de419b91b640b371a6149d";
+// const CLIENT_ID = "01297afb8cb54e22892000d457eb45e9"; fallback 2
+// const CLIENT_SECRET = "75675a4310b8479bb431d91081225d85"; fallback 2
 
 const Browse = () => {
   const { userId } = useContext(UserContext); // Get logged-in user ID\

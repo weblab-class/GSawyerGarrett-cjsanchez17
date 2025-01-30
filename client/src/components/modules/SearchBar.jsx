@@ -1,21 +1,20 @@
 import React, { useState } from "react";
 import "./SearchBar.css"; // Ensure this path is correct
 
-/**
- * The search bar that is centered on the page.
- */
-const SearchBar = () => {
-  const [query, setQuery] = useState(""); // State to store the search input
+const SearchBar = ({ onSearch }) => {
+  const [query, setQuery] = useState("");
 
   // Handle the input change event
   const handleInputChange = (event) => {
-    setQuery(event.target.value); // Update state with input value
+    setQuery(event.target.value);
   };
 
   // Handle the form submission
   const handleSubmit = (event) => {
     event.preventDefault(); // Prevent form default behavior (page reload)
-    console.log("Search query:", query); // Example: Log or do something with the query
+    if (query.trim()) {
+      onSearch(query);
+    }
   };
 
   return (
@@ -23,7 +22,7 @@ const SearchBar = () => {
       <input
         type="text"
         className="search-input"
-        placeholder=""
+        placeholder="Search the vibe you want to explore..."
         value={query}
         onChange={handleInputChange}
       />
